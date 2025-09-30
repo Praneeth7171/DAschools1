@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DA-SCHOOLS - Disaster Preparedness & Safety System</title>
+    <meta name="description" content="Interactive disaster preparedness platform for Indian schools and colleges. Learn safety skills through engaging simulations and drills." />
+    <meta name="author" content="DA-SCHOOLS Team" />
+    <meta name="keywords" content="disaster preparedness, school safety, emergency training, India education, safety drills" />
+
+    <meta property="og:title" content="DA-SCHOOLS - Disaster Preparedness & Safety System" />
+    <meta property="og:description" content="Interactive disaster preparedness platform for Indian schools and colleges. Learn safety skills through engaging simulations and drills." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@daschools" />
+    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="style.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'danger': '#e74c3c',
+                        'secondary': '#f39c12',
+                        'background': '#f4f7f9',
+                        'card': '#ffffff',
+                        'dark-text': '#2c3e50',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Hide the default Google Translate banner/logo that appears with the widget */
+        .goog-te-gadget-simple {
+            background-color: transparent !important;
+            border: none !important;
+            padding: 0 !important;
+        }
+
+        .goog-te-gadget-simple .VIpgJd-yAWLNd-img {
+            display: none !important; /* Hide the default Google flag/icon */
+        }
+        
+        /* Ensure the language dropdown selector itself matches the card background */
+        .goog-te-combo {
+            background-color: #ffffff !important; 
+            color: #c1c3c6 !important;
+            border: 1px solid #ddd !important;
+            padding: 6px !important;
+            border-radius: 4px !important;
+        }
+        
+        /* Position the Language menu relative to its button */
+        #language-menu {
+            right: 80px; /* Adjust this value to position it correctly next to the user menu */
+        }
+    </style>
+    </head>
+<body class="bg-background min-h-screen font-sans text-dark-text"> 
+
+<div id="live-alert-bar" class="hidden w-full bg-danger text-white p-3 text-center text-lg font-bold fixed top-0 left-0 z-40 shadow-2xl transition-all duration-500">
+    <div id="alert-message"></div>
+</div>
+
+<header class="fixed top-0 left-0 w-full z-30 p-4 lg:p-6 backdrop-blur-sm bg-black/10 transition-all duration-500" id="main-header">
+    <div class="container mx-auto flex justify-between items-center relative">
+        
+        <a href="index.html" class="text-2xl font-extrabold text-secondary hover:text-white transition duration-300">DA-SCHOOLS</a>
+        
+        <div class="flex items-center space-x-4">
+            
+            <button id="language-button" 
+                    class="px-4 py-2 bg-dark-text text-secondary font-semibold rounded-full 
+                            hover:bg-secondary hover:text-dark-text transition duration-300 shadow-md text-sm lg:text-base">
+                Language
+            </button>
+            
+            <button id="user-menu-button" class="w-12 h-12 rounded-full border-2 border-white/50 overflow-hidden shadow-xl hover:ring-2 hover:ring-secondary transition duration-300">
+                <img src="icons/main.png" alt="User Icon" class="w-full h-full object-cover">
+            </button>
+        </div>
+        <div id="language-menu" class="absolute right-4 lg:right-6 top-full mt-2 hidden w-48 rounded-xl shadow-lg bg-card ring-1 ring-black ring-opacity-5 focus:outline-none z-50 transform origin-top-right transition-all duration-200 scale-95 opacity-0">
+            <div class="py-3 px-4" role="menu" aria-orientation="vertical" aria-labelledby="language-button" tabindex="-1">
+                <label class="block text-sm font-semibold uppercase text-gray-500 mb-2">Change Language:</label>
+                <div id="google_translate_element" class="text-sm"></div>
+            </div>
+        </div>
+        <div id="user-menu" class="absolute right-4 lg:right-6 top-full mt-2 hidden w-64 rounded-xl shadow-lg bg-card ring-1 ring-black ring-opacity-5 focus:outline-none z-50 transform origin-top-right transition-all duration-200 scale-95 opacity-0">
+            <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                <a href="login.html" class="flex items-center px-4 py-3 text-sm text-dark-text hover:bg-background transition duration-200 rounded-t-xl" role="menuitem" tabindex="-1">
+                    <span class="mr-3 text-xl"></span> Student Login
+                </a>
+                <a href="teacher_login.html" class="flex items-center px-4 py-3 text-sm text-dark-text hover:bg-background transition duration-200" role="menuitem" tabindex="-1">
+                    <span class="mr-3 text-xl"></span> Teacher Login
+                </a>
+                <a href="volunteer.html" class="flex items-center px-4 py-3 text-sm text-dark-text hover:bg-background transition duration-200" role="menuitem" tabindex="-1">
+                    <span class="mr-3 text-xl"></span> Volunteers
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 text-sm text-dark-text hover:bg-background transition duration-200" role="menuitem" tabindex="-1">
+                    <span class="mr-3 text-xl"></span> Live Alerts
+                </a>
+                <a href="about.html" class="flex items-center px-4 py-3 text-sm text-dark-text hover:bg-background transition duration-200" role="menuitem" tabindex="-1">
+                    <span class="mr-3 text-xl"></span> About Us
+                </a>
+                <a href="Communication.html" class="flex items-center px-4 py-3 text-sm text-dark-text hover:bg-background transition duration-200" role="menuitem" tabindex="-1">
+                    <span class="mr-3 text-xl"></span> Help
+                </a>
+                <a href="download_modules.html" class="flex items-center px-4 py-3 text-sm text-dark-text hover:bg-background transition duration-200 rounded-b-xl" role="menuitem" tabindex="-1">
+                    <span class="mr-3 text-xl"></span> Download Modules
+                </a>
+            </div>
+        </div>
+        </div>
+</header>
+
+<section>
+    <div id="container"
+        style="width:100%;height:550px;
+        background:url('images/img1.jpg') center/cover no-repeat;
+        position: relative;"> 
+        <div class="absolute inset-0 bg-black/40"></div> 
+
+        <div class="container mx-auto px-4 py-16 lg:py-10 grid lg:grid-cols-2 gap-12 items-center text-white relative z-10 h-full pt-10">
+            <div class="space-y-6 bg-black/50 backdrop-blur-sm p-8 rounded-2xl border-b-4 border-danger shadow-2xl self-center">
+                <span class="inline-block px-4 py-1 bg-danger/90 text-white rounded-full text-sm font-semibold tracking-wider uppercase">
+                    Disaster Preparedness Platform
+                </span>
+                
+                <h1 class="text-5xl lg:text-7xl font-extrabold text-white leading-tight">
+                    <span class="bg-gradient-to-r from-danger to-secondary bg-clip-text text-transparent">
+                        Safety is Our First Subject.
+                    </span>
+                </h1>
+                
+                <div class="flex flex-wrap gap-4 pt-4">
+                    <a href="Start learning.html" class="px-8 py-3 bg-danger text-white font-bold rounded-full hover:bg-red-700 transition duration-300 shadow-lg hover:shadow-xl flex items-center gap-2 text-lg">
+                        Start Learning
+                    </a>
+                    <a href="Resource.html" class="px-8 py-3 border-2 border-white rounded-full hover:bg-secondary hover:border-secondary text-white transition duration-300 flex items-center gap-2 text-lg">
+                        View Resources
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="container mx-auto px-4 py-16">
+    <div class="text-center mb-16">
+        <h2 class="text-4xl font-extrabold mb-4 text-dark-text">Interactive Safety <span class="text-danger">Drills</span></h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+            Practice emergency responses in safe, virtual environments. Build muscle memory through Realistic Drills
+        </p>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-card border-t-8 border-danger rounded-xl p-8 shadow-2xl hover:shadow-2xl transition duration-500 transform hover:-translate-y-1">
+            <img src="icons/earthquake-icon.jpg" alt="Earthquake" class="w-16 h-16 rounded-full mb-4 ring-4 ring-danger p-1">
+            <h3 class="text-xl font-extrabold mb-2 text-dark-text">Earthquake Safety</h3>
+            <p class="text-sm text-gray-600 mb-6 h-10">Practice Drop, Cover, and Hold On techniques in a virtual classroom environment</p>
+            <div class="flex justify-between items-center pt-4 border-t border-gray-200">
+                <span class="text-sm text-gray-500 font-semibold">10 min</span>
+                <a href="Z1drill.html" class="px-5 py-2 bg-danger text-white rounded-full hover:bg-red-700 font-semibold transition duration-300 text-sm" role="button">Start Drill</a>
+            </div>
+        </div>
+
+        <div class="bg-card border-t-8 border-blue-600 rounded-xl p-8 shadow-2xl hover:shadow-2xl transition duration-500 transform hover:-translate-y-1">
+            <img src="icons/flood-icon.jpg" alt="Flood" class="w-16 h-16 rounded-full mb-4 ring-4 ring-blue-600 p-1">
+            <h3 class="text-xl font-extrabold mb-2 text-dark-text">Flood Evacuation</h3>
+            <p class="text-sm text-gray-600 mb-6 h-10">Learn safe evacuation routes and help others reach higher ground</p>
+            <div class="flex justify-between items-center pt-4 border-t border-gray-200">
+                <span class="text-sm text-gray-500 font-semibold">15 min</span>
+                <a href="Z2drill.html" class="px-5 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 font-semibold transition duration-300 text-sm" role="button">Start Drill</a>
+            </div>
+        </div>
+
+        <div class="bg-card border-t-8 border-secondary rounded-xl p-8 shadow-2xl hover:shadow-2xl transition duration-500 transform hover:-translate-y-1">
+            <img src="icons/fire-icon.jpg" alt="Fire" class="w-16 h-16 rounded-full mb-4 ring-4 ring-secondary p-1">
+            <h3 class="text-xl font-extrabold mb-2 text-dark-text">Fire Safety</h3>
+            <p class="text-sm text-gray-600 mb-6 h-10">Master fire extinguisher use and emergency exit procedures</p>
+            <div class="flex justify-between items-center pt-4 border-t border-gray-200">
+                <span class="text-sm text-gray-500 font-semibold">12 min</span>
+                <a href="Z3drill.html" class="px-5 py-2 bg-secondary text-white rounded-full hover:bg-orange-600 font-semibold transition duration-300 text-sm" role="button">Start Drill</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-white py-12 md:py-16 shadow-inner">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl font-extrabold mb-3 text-dark-text">☎️ Disaster & Women's <span class="text-danger">Helplines</span></h2>
+            <p class="text-md text-gray-600">Tap to instantly connect with essential safety and support services (India specific)</p>
+        </div>
+        
+        <div class="max-w-4xl mx-auto grid grid-cols-1 gap-6">
+            
+            <a href="tel:1070" class="block group">
+                <div class="flex flex-col sm:flex-row justify-between items-center p-5 bg-background border-2 border-danger/50 rounded-xl shadow-md hover:border-danger hover:shadow-xl transition duration-300">
+                    <div class="text-center sm:text-left mb-2 sm:mb-0 w-full sm:w-3/4">
+                        <h4 class="font-bold text-xl text-dark-text flex items-center justify-center sm:justify-start">
+                            <span class="text-3xl mr-3 text-danger"></span> NDMA Disaster 
+                        </h4>
+                        <p class="text-sm text-gray-500 pl-8 sm:pl-9">National Disaster Management Authority</p>
+                    </div>
+                    <div class="px-5 py-2 bg-danger text-white font-extrabold text-2xl rounded-full group-hover:bg-red-700 transition duration-300 w-full sm:w-auto text-center mt-3 sm:mt-0">
+                        1070
+                    </div>
+                </div>
+            </a>
+            
+            <a href="tel:1078" class="block group">
+                <div class="flex flex-col sm:flex-row justify-between items-center p-5 bg-background border-2 border-danger/50 rounded-xl shadow-md hover:border-danger hover:shadow-xl transition duration-300">
+                    <div class="text-center sm:text-left mb-2 sm:mb-0 w-full sm:w-3/4">
+                        <h4 class="font-bold text-xl text-dark-text flex items-center justify-center sm:justify-start">
+                            <span class="text-3xl mr-3 text-secondary"></span> Cyclone/Weather Alerts
+                        </h4>
+                        <p class="text-sm text-gray-500 pl-8 sm:pl-9">Ministry of Home Affairs Control Room</p>
+                    </div>
+                    <div class="px-5 py-2 bg-secondary text-white font-extrabold text-2xl rounded-full group-hover:bg-orange-600 transition duration-300 w-full sm:w-auto text-center mt-3 sm:mt-0">
+                        1078
+                    </div>
+                </div>
+            </a>
+            
+            <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-4 mt-4">
+                
+                <a href="tel:181" class="block group">
+                    <div class="flex justify-between items-center p-5 bg-background border-2 border-danger/50 rounded-xl shadow-md h-full hover:border-danger hover:shadow-xl transition duration-300">
+                        <div class="flex-grow">
+                            <h4 class="font-bold text-xl text-dark-text flex items-center">
+                                <span class="text-3xl mr-3 text-danger"></span> Women Helpline
+                            </h4>
+                            <p class="text-sm text-gray-500 pl-9">Emergency and Non-Emergency Support</p>
+                        </div>
+                        <div class="px-5 py-2 bg-danger text-white font-extrabold text-2xl rounded-full group-hover:bg-red-700 transition duration-300 text-center flex-shrink-0">
+                            181
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="https://112.gov.in/" target="_blank" class="block group" title="Launches the 112 India (ERSS) app/website.">
+                    <div class="flex flex-col justify-center items-center p-4 bg-danger/10 border-2 border-danger/50 rounded-xl shadow-md h-full hover:bg-danger hover:border-danger hover:shadow-xl transition duration-300 text-dark-text hover:text-white">
+                        <span class="text-4xl mb-1 text-danger group-hover:text-white">📍</span>
+                        <span class="font-bold text-lg text-center leading-tight">LIVE TRACK ME</span>
+                        <p class="text-xs text-gray-500 group-hover:text-red-200 mt-1">(Launches 112 App/Web)</p>
+                    </div>
+                </a>
+
+                <a href="tel:1091" class="block group">
+                    <div class="flex justify-between items-center p-5 bg-background border-2 border-danger/50 rounded-xl shadow-md h-full hover:border-danger hover:shadow-xl transition duration-300">
+                        <div class="flex-grow">
+                            <h4 class="font-bold text-xl text-dark-text flex items-center">
+                                <span class="text-3xl mr-3 text-danger">👮</span> Anti-Harassment 
+                            </h4>
+                            <p class="text-sm text-gray-500 pl-9">Police Control Room for Women (Pan-India)</p>
+                        </div>
+                        <div class="px-5 py-2 bg-danger text-white font-extrabold text-2xl rounded-full group-hover:bg-red-700 transition duration-300 text-center flex-shrink-0">
+                            1091
+                        </div>
+                    </div>
+                </a>
+
+                 <a href="https://112.gov.in/" target="_blank" class="block group">
+                    <div class="flex flex-col justify-center items-center p-4 bg-danger/10 border-2 border-danger/50 rounded-xl shadow-md h-full hover:bg-danger hover:border-danger hover:shadow-xl transition duration-300 text-dark-text hover:text-white">
+                        <span class="text-4xl mb-1 text-danger group-hover:text-white">🚨</span>
+                        <span class="font-bold text-lg text-center leading-tight">SOS TO POLICE</span>
+                        <p class="text-xs text-gray-500 group-hover:text-red-200 mt-1">(Launches 112 App/Web)</p>
+                    </div>
+                </a>
+
+            </div>
+            
+            <p class="text-center text-xs text-gray-500 mt-6 max-w-lg mx-auto">
+                *The **LIVE TRACK ME** feature requires the official **112 India (ERSS)** mobile application or other government-verified safety apps to share your real-time GPS location with law enforcement. The buttons above link to the official national emergency website.
+            </p>
+
+        </div>
+    </div>
+</section>
+<section class="container mx-auto px-4 py-16">
+    <div class="text-center mb-16">
+        <h2 class="text-4xl font-extrabold mb-4 text-dark-text">Essential Safety <span class="text-secondary">Resources</span></h2>
+        <p class="text-lg text-gray-600">
+            Comprehensive guides and materials for disaster preparedness.
+        </p>
+    </div>
+    
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <a href="first_aid.html" 
+            class="bg-card rounded-xl p-6 text-center shadow-lg transition duration-300 border-b-4 border-secondary/0 block 
+                    hover:shadow-2xl hover:border-secondary hover:no-underline transform hover:scale-[1.03] text-dark-text">
+            
+            <div class="text-5xl mb-3">⛑️</div>
+            <h3 class="text-xl font-extrabold mb-2">First Aid Guide</h3>
+            <p class="text-gray-600 mb-4 text-sm h-10">Basic medical emergency procedures</p>
+            
+            <div class="px-4 py-2 bg-secondary text-white rounded-full w-full hover:bg-orange-600 font-semibold transition duration-300 text-sm">
+                View Guide
+            </div>
+        </a>
+        
+        <a href="Evacuation_Routes.html" 
+            class="bg-card rounded-xl p-6 text-center shadow-lg transition duration-300 border-b-4 border-secondary/0 block 
+                    hover:shadow-2xl hover:border-secondary hover:no-underline transform hover:scale-[1.03] text-dark-text">
+            
+            <div class="text-5xl mb-3">🚪</div>
+            <h3 class="text-xl font-extrabold mb-2">Evacuation Routes</h3>
+            <p class="text-gray-600 mb-4 text-sm h-10">Safe exit strategies for buildings</p>
+            
+            <div class="px-4 py-2 bg-secondary text-white rounded-full w-full hover:bg-orange-600 font-semibold transition duration-300 text-sm">
+                View Guide
+            </div>
+        </a>
+
+        <a href="Emergency_Kit.html" 
+            class="bg-card rounded-xl p-6 text-center shadow-lg transition duration-300 border-b-4 border-secondary/0 block 
+                    hover:shadow-2xl hover:border-secondary hover:no-underline transform hover:scale-[1.03] text-dark-text">
+            
+            <div class="text-5xl mb-3">🎒</div>
+            <h3 class="text-xl font-extrabold mb-2">Emergency checklist</h3>
+            <p class="text-gray-600 mb-4 text-sm h-10">Essential supplies checklist</p>
+            
+            <div class="px-4 py-2 bg-secondary text-white rounded-full w-full hover:bg-orange-600 font-semibold transition duration-300 text-sm">
+                View Guide
+            </div>
+        </a>
+        
+        <a href="Communication.html" 
+            class="bg-card rounded-xl p-6 text-center shadow-lg transition duration-300 border-b-4 border-secondary/0 block 
+                    hover:shadow-2xl hover:border-secondary hover:no-underline transform hover:scale-[1.03] text-dark-text">
+            
+            <div class="text-5xl mb-3">📡</div>
+            <h3 class="text-xl font-extrabold mb-2">Help</h3>
+            <p class="text-gray-600 mb-4 text-sm h-10">Stay connected during disasters</p>
+            
+            <div class="px-4 py-2 bg-secondary text-white rounded-full w-full hover:bg-orange-600 font-semibold transition duration-300 text-sm">
+                View Guide
+            </div>
+        </a>
+        
+    </div>
+</section>
+
+<footer class="bg-dark-text text-gray-100 py-10 text-center">
+    <div class="container mx-auto px-4"> 
+        
+        <h3 class="text-3xl font-extrabold mb-2 text-secondary tracking-wide">DA-SCHOOLS</h3>
+        <p class="text-gray-400 mb-6 max-w-lg mx-auto">
+            Empowering students with life-saving knowledge. Building safer schools, one drill at a time.
+        </p>
+
+        <div class="flex justify-center space-x-6 mb-8 text-sm font-semibold">
+            <a href="Resource.html" class="text-gray-400 hover:text-secondary transition duration-300">Resources</a>
+            <span class="text-gray-600">|</span>
+            <a href="login.html" class="text-gray-400 hover:text-secondary transition duration-300">Student Login</a>
+            <span class="text-gray-600">|</span>
+            <a href="about.html" class="text-gray-400 hover:text-secondary transition duration-300">About Us</a>
+        </div>
+        
+        <div class="pt-6 border-t border-gray-700">
+            <p class="text-xs text-gray-500 space-x-4">
+                <span class="inline-block">© 2025 DA-SCHOOLS Team. All rights reserved.</span>
+                <span class="text-secondary font-medium">|</span>
+                <span class="inline-block">A Smart India Hackathon Project.</span>
+            </p>
+        </div>
+
+    </div>
+</footer>
+
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        // Initializes the Google Translate widget
+        new google.translate.TranslateElement({
+            pageLanguage: 'en', // Set the source language
+            // Includes major languages of India
+            includedLanguages: 'en,hi,bn,te,mr,ta,ur,gu,kn,ml,pa', 
+            layout: google.translate.TranslateElement.InlineLayout.VERTICAL, // Vertical menu layout
+            autoDisplay: false
+        }, 'google_translate_element');
+    }
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+    // Original image changing function left as-is, though only one image is defined.
+    function changeing() {
+        var images = [
+            "url('images/img1.jpg')"
+        ];
+
+        let index = 0;
+        const box = document.getElementById("container");
+
+        setInterval(function() {
+            index = (index + 1) % images.length;
+            box.style.backgroundImage = images[index];
+        }, 3000); // change every 3 seconds
+    }
+
+    // *** LIVE ALERT & LAYOUT ADJUSTMENT FUNCTIONALITY ***
+    function adjustLayout() {
+        const alertBar = document.getElementById('live-alert-bar');
+        const mainHeader = document.getElementById('main-header');
+        const heroSection = document.getElementById('container');
+
+        const alertHeight = alertBar.classList.contains('hidden') ? 0 : alertBar.offsetHeight;
+        const headerHeight = mainHeader.offsetHeight;
+
+        // Correctly position header and hero based on alert bar visibility
+        mainHeader.style.top = alertHeight + 'px';
+        heroSection.style.marginTop = alertHeight + headerHeight + 'px';
+    }
+
+    function checkLiveAlerts() {
+        // SIMULATED LIVE ALERT DATA
+        const activeAlert = {
+            isActive: false, // <--- CHANGE THIS TO 'true' TO SEE THE ALERT
+            message: "🚨 EARTHQUAKE ALERT! Light tremors reported in your area. All DROP, COVER, HOLD ON immediately.",
+            type: "Danger"
+        };
+
+        const alertBar = document.getElementById('live-alert-bar');
+        const alertMessage = document.getElementById('alert-message');
+
+        if (activeAlert.isActive) {
+            alertMessage.innerHTML = activeAlert.message;
+            alertBar.classList.remove('hidden');
+        } else {
+            alertBar.classList.add('hidden');
+        }
+        
+        // Always call this to ensure the layout is correct after checking the alert
+        adjustLayout();
+    }
+
+    window.onload = function() {
+        changeing();
+        checkLiveAlerts();
+    }
+
+    // --- DROPDOWN MENU TOGGLE LOGIC ---
+    const languageButton = document.getElementById('language-button');
+    const languageMenu = document.getElementById('language-menu');
+    const userMenuButton = document.getElementById('user-menu-button');
+    const userMenu = document.getElementById('user-menu');
+
+    // Function to toggle any menu
+    function toggleMenu(menu) {
+        const isMenuHidden = menu.classList.contains('hidden');
+
+        // Close the OTHER menu if it's open
+        if (menu === languageMenu && !userMenu.classList.contains('hidden')) {
+            closeMenu(userMenu);
+        } else if (menu === userMenu && !languageMenu.classList.contains('hidden')) {
+            closeMenu(languageMenu);
+        }
+
+        if (isMenuHidden) {
+            menu.classList.remove('hidden');
+            setTimeout(() => {
+                menu.classList.remove('scale-95', 'opacity-0');
+                menu.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        } else {
+            closeMenu(menu);
+        }
+    }
+    
+    // Function to close a menu cleanly
+    function closeMenu(menu) {
+        menu.classList.remove('scale-100', 'opacity-100');
+        menu.classList.add('scale-95', 'opacity-0');
+        setTimeout(() => {
+            menu.classList.add('hidden');
+        }, 200);
+    }
+
+    // Event listeners for buttons
+    languageButton.addEventListener('click', () => toggleMenu(languageMenu));
+    userMenuButton.addEventListener('click', () => toggleMenu(userMenu));
+    
+    // Close the dropdowns if the user clicks outside of them
+    window.addEventListener('click', (event) => {
+        // Check if the click target is outside the Language button AND menu
+        const isOutsideLanguage = !languageButton.contains(event.target) && !languageMenu.contains(event.target);
+        // Check if the click target is outside the User button AND menu
+        const isOutsideUser = !userMenuButton.contains(event.target) && !userMenu.contains(event.target);
+
+        if (isOutsideLanguage && !languageMenu.classList.contains('hidden')) {
+            closeMenu(languageMenu);
+        }
+        
+        if (isOutsideUser && !userMenu.classList.contains('hidden')) {
+            closeMenu(userMenu);
+        }
+    });
+</script>
+
+</body>
+</html>

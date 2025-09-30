@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Volunteer for Drills - DA-SCHOOLS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Define a custom color palette for a safety/professional theme */
+        :root {
+            --color-primary: #1e88e5; /* Blue: Professional and trustworthy */
+            --color-secondary: #ff9800; /* Orange: Warning/Action/Energy */
+            --color-success: #4caf50;
+            --color-background: #f4f7f9;
+        }
+
+        /* Custom Tailwind config for the theme */
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': 'var(--color-primary)',
+                        'secondary': 'var(--color-secondary)',
+                        'success': 'var(--color-success)',
+                        'background': 'var(--color-background)',
+                        'card': '#ffffff',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+
+        /* Custom style for the guidelines list */
+        .guidelines-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .guidelines-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 1.05rem;
+            color: #4a5568; /* Darker text for readability */
+        }
+
+        /* Replaced emoji with a standard bullet point */
+        .guidelines-list li::before {
+            content: '•'; /* Standard bullet point */
+            position: absolute;
+            left: 0;
+            color: var(--color-secondary);
+            font-size: 1.5em;
+            line-height: 0.7;
+            font-weight: bold;
+        }
+
+        /* Utility classes for form messages */
+        .hidden {
+            display: none;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="bg-background min-h-screen p-4 sm:p-8">
+
+    <div class="max-w-4xl mx-auto bg-card rounded-2xl shadow-2xl p-6 sm:p-10 border-t-8 border-primary relative">
+        
+        <a href="index.html" class="absolute top-6 left-6 text-gray-500 hover:text-primary font-medium transition duration-150 flex items-center">
+            <svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            Back to Home
+        </a>
+        
+        <header class="text-center mb-10 mt-6">
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-primary mb-3">
+                Join the Drill Team! 
+            </h1>
+            <p class="text-xl text-gray-600">Apply to volunteer for organizing and executing school disaster preparedness drills.</p>
+        </header>
+
+        <section class="mb-12 p-6 bg-blue-50 rounded-xl border border-blue-200">
+            <h2 class="text-2xl font-bold text-primary mb-4 flex items-center">
+                <svg class="w-6 h-6 mr-2 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.21a.999.999 0 010 1.414l-4.21 4.21a.999.999 0 01-1.414 0L9 12m-2.293-2.293a.999.999 0 010-1.414l4.21-4.21a.999.999 0 011.414 0L15 12m4.21-4.21a.999.999 0 011.414 0l-4.21 4.21a.999.999 0 01-1.414 0L15 12"></path></svg>
+                Guidelines & Safety Rules
+            </h2>
+            <ul class="guidelines-list">
+                <li>Commitment: Volunteers must commit to a minimum of 5 hours per month.</li>
+                <li>Training: Mandatory 3-hour orientation and safety training must be completed before participation.</li>
+                <li>Confidentiality: All student and school data must be kept strictly confidential.</li>
+                <li>Chain of Command: Volunteers must follow the instructions of the designated Drill Coordinator at all times.</li>
+                <li>Safety First: Personal safety equipment (vest, whistle) must be worn during all drill simulations.</li>
+                <li>Professionalism: Maintain a professional and calm demeanor to ensure a realistic and safe environment for students.</li>
+            </ul>
+        </section>
+
+        <div id="successMessage" class="hidden bg-success text-white p-4 rounded-lg mb-6 text-center font-bold">
+            Application Submitted! We will contact you soon to schedule your orientation.
+        </div>
+        <div id="errorMessage" class="hidden bg-red-500 text-white p-4 rounded-lg mb-6 text-center font-bold">
+            Submission failed. Please check your network connection or try again later.
+        </div>
+
+        <section>
+            <h2 class="text-2xl font-bold text-secondary mb-5">Application Form</h2>
+            <form id="volunteerApplicationForm" class="space-y-6">
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="fullName" class="block text-sm font-medium text-gray-700">Full Name</label>
+                        <input type="text" id="fullName" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                        <input type="email" id="email" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                        <input type="tel" id="phone" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary">
+                    </div>
+                    <div>
+                        <label for="age" class="block text-sm font-medium text-gray-700">Age</label>
+                        <input type="number" id="age" required min="18" max="99" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="experience" class="block text-sm font-medium text-gray-700">Relevant Experience (e.g., First Aid, Scouting, Disaster Mgmt.)</label>
+                    <textarea id="experience" rows="3" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary" placeholder="Describe your experience here..."></textarea>
+                </div>
+
+                <div>
+                    <label for="availability" class="block text-sm font-medium text-gray-700">Preferred Availability (Days/Times)</label>
+                    <select id="availability" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary">
+                        <option value="">Select an option</option>
+                        <option value="weekends">Weekends Only</option>
+                        <option value="weekdays-mornings">Weekdays Mornings (8 AM - 12 PM)</option>
+                        <option value="weekdays-afternoons">Weekdays Afternoons (1 PM - 5 PM)</option>
+                        <option value="anytime">Flexible / Anytime</option>
+                    </select>
+                </div>
+                
+                <div class="flex items-start pt-4">
+                    <input id="agreement" type="checkbox" required class="h-4 w-4 text-primary border-gray-300 rounded focus:ring-primary">
+                    <label for="agreement" class="ml-3 text-sm text-gray-700">
+                        I confirm that I have read and agree to abide by all the **Guidelines & Safety Rules** listed above.
+                    </label>
+                </div>
+
+                <button type="submit" id="submitButton" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-lg text-lg font-bold text-white bg-secondary hover:bg-orange-600 focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-secondary transition duration-300 ease-in-out">
+                    Submit Application
+                </button>
+            </form>
+        </section>
+
+        <script>
+            document.getElementById('volunteerApplicationForm').addEventListener('submit', function(e) {
+                e.preventDefault(); 
+                
+                const submitButton = document.getElementById('submitButton');
+                const successMessage = document.getElementById('successMessage');
+                const errorMessage = document.getElementById('errorMessage');
+
+                // 1. Hide previous messages and disable button
+                successMessage.classList.add('hidden');
+                errorMessage.classList.add('hidden');
+                submitButton.textContent = 'Submitting...';
+                submitButton.disabled = true;
+
+                // --- SIMULATED API CALL ---
+                // Replace this block with a real 'fetch' call to your server later
+                setTimeout(() => {
+                    const submissionSuccessful = true; // Set to 'false' to test the error message
+
+                    if (submissionSuccessful) {
+                        // 2. Show Success
+                        successMessage.classList.remove('hidden');
+                        
+                        // 3. Reset the form 
+                        this.reset();
+                    } else {
+                        // 2. Show Error (e.g., if a real fetch() call failed)
+                        errorMessage.classList.remove('hidden');
+                    }
+                    
+                    // 4. Restore button state (regardless of success/failure)
+                    submitButton.textContent = 'Submit Application';
+                    submitButton.disabled = false;
+
+                }, 1500); // Simulate network delay
+
+            });
+        </script>
+
+    </div>
+</body>
+</html>

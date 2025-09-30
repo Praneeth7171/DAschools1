@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DA-SCHOOLS - Fun Safety Resources</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ======================== 1. BASE STYLES & LAYOUT (FUN EDITION) ======================== */
+        body {
+            /* Using a fun, rounded font for titles and a clean font for body text */
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 30px 20px;
+            /* Bright, cheerful background */
+            background-color: #ffe6f2; /* Light Pink/Lavender */
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Fredoka One', cursive;
+            color: #e74c3c; /* Primary Red */
+            font-size: 3.5em;
+            margin-bottom: 30px;
+            border-bottom: 6px dashed #f39c12; /* Dashed Orange Border */
+            padding-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 3px 3px #fff; /* White outline for pop */
+        }
+
+        /* ======================== 2. BUTTON (RESOURCE LINK) STYLES - PLAYFUL ======================== */
+        .resource-list {
+            list-style-type: none;
+            padding: 0;
+            display: grid; 
+            gap: 25px; /* Increased gap */
+            margin-top: 30px;
+            max-width: 1200px;
+            width: 95%; 
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+            justify-content: center;
+        }
+
+        .resource-list li a {
+            text-decoration: none;
+            color: #fff;
+            font-family: 'Fredoka One', cursive;
+            font-weight: 400; /* Fredoka One is inherently bold */
+            font-size: 1.25em; 
+            padding: 25px 30px; 
+            background-color: #3498db; /* Primary Blue */
+            border-radius: 15px; 
+            /* Cheerful 3D shadow effect */
+            box-shadow: 0 8px 0 #2980b9, 0 12px 20px rgba(0, 0, 0, 0.2); 
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: block; 
+            width: 100%; 
+            box-sizing: border-box; 
+        }
+
+        .resource-list li a:hover {
+            background-color: #2ecc71; /* Exciting Green on hover */
+            transform: translateY(-5px); /* Bouncy lift */
+            /* Adjusted shadow for the lifted state */
+            box-shadow: 0 10px 0 #27ae60, 0 15px 30px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+        }
+
+        /* ======================== 3. POPUP (MODAL) STYLES - CARTOON STYLE ======================== */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75); 
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+            animation: fadeInOverlay 0.4s forwards;
+        }
+
+        .popup-content {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 20px; /* More rounded */
+            /* Thick, playful border and shadow */
+            border: 5px solid #e74c3c; 
+            box-shadow: 0 10px 0 #d35400, 0 20px 40px rgba(0, 0, 0, 0.5); 
+            max-width: 950px; 
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto; 
+            position: relative;
+            transform: scale(0.95);
+            animation: scaleIn 0.4s forwards;
+            text-align: left;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-family: 'Fredoka One', cursive;
+            font-size: 3em; 
+            color: #f39c12; /* Orange X */
+            cursor: pointer;
+            transition: color 0.3s ease, transform 0.3s ease;
+            line-height: 1;
+            /* Circular background for the X */
+            background-color: #fff;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .close-btn:hover {
+            color: #e74c3c;
+            transform: rotate(180deg) scale(1.1); /* Fun spin */
+        }
+
+        /* ======================== 4. POPUP CONTENT STYLING ======================== */
+        .popup-content h2 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2.2em;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            padding-left: 20px;
+            border-left: 8px solid; /* Thicker accent bar */
+            text-transform: uppercase;
+        }
+
+        .popup-content h3 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.5em;
+            font-weight: 400;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            color: #555;
+            padding-left: 10px;
+        }
+
+        .popup-content p, .popup-content ul {
+            font-size: 1.1em;
+        }
+        
+        .popup-content ul {
+            list-style-type: '👉 '; /* Fun bullet point */
+            margin-left: 15px;
+            padding-left: 10px;
+        }
+
+        .section-separator {
+            border-top: 3px dotted #f39c12; /* Dotted line */
+            margin: 35px 0;
+        }
+
+        /* Table Styles (if present) */
+        .popup-content th, .popup-content td {
+            border: 2px solid #ccc;
+        }
+
+        /* ======================== 5. DISASTER-SPECIFIC COLORS ======================== */
+        /* Earthquake */
+        #earthquake-popup h2, #earthquake-popup h3 { border-color: #34495e; color: #34495e; }
+
+        /* Fire */
+        #fire-popup h2, #fire-popup h3 { border-color: #e74c3c; color: #e74c3c; }
+
+        /* Flood */
+        #flood-popup h2, #flood-popup h3 { border-color: #3498db; color: #3498db; }
+
+        /* Cyclone/Storm */
+        #cyclone-popup h2, #cyclone-popup h3 { border-color: #f1c40f; color: #f1c40f; } /* Yellow */
+
+        /* Tsunami */
+        #tsunami-popup h2, #tsunami-popup h3 { border-color: #1abc9c; color: #1abc9c; }
+        
+        /* Landslide */
+        #landslide-popup h2, #landslide-popup h3 { border-color: #d35400; color: #d35400; } /* Burnt Orange */
+
+        /* Heat Wave */
+        #heatwave-popup h2, #heatwave-popup h3 { border-color: #e67e22; color: #e67e22; }
+
+        /* Epidemic/Pandemic */
+        #pandemic-popup h2, #pandemic-popup h3 { border-color: #2ecc71; color: #2ecc71; }
+        
+        /* Chemical Hazard */
+        #chemical-popup h2, #chemical-popup h3 { border-color: #9b59b6; color: #9b59b6; }
+
+        /* Terror Attack */
+        #terror-popup h2, #terror-popup h3 { border-color: #7f8c8d; color: #7f8c8d; }
+        
+        /* Road Safety */
+        #road-popup h2, #road-popup h3 { border-color: #3498db; color: #3498db; }
+
+        /* Building Collapse */
+        #collapse-popup h2, #collapse-popup h3 { border-color: #c0392b; color: #c0392b; }
+
+        /* ======================== 6. ANIMATIONS & MEDIA QUERIES ======================== */
+        @keyframes fadeInOverlay {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            0% { transform: scale(0.5) rotate(10deg); opacity: 0; }
+            70% { transform: scale(1.05) rotate(-2deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.5em;
+            }
+            .resource-list {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .resource-list li a {
+                padding: 18px 20px;
+                font-size: 1.1em;
+            }
+            .popup-content {
+                padding: 20px;
+                width: 95%;
+            }
+            .popup-content h2 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Safety Super-Power Resources!</h1>
+    <ul class="resource-list">
+        <li><a href="#" data-link="earthquake">Earthquake Safety</a></li>
+        <li><a href="#" data-link="fire">Fire Response</a></li>
+        <li><a href="#" data-link="flood">Flood Awareness</a></li>
+        <li><a href="#" data-link="cyclone">Cyclone & Storms</a></li>
+        <li><a href="#" data-link="tsunami">Tsunami Readiness</a></li>
+        <li><a href="#" data-link="landslide">Landslide Safety</a></li>
+        <li><a href="#" data-link="heatwave">Heat Wave Safety</a></li>
+        <li><a href="#" data-link="pandemic">Epidemic / Pandemic</a></li>
+        <li><a href="#" data-link="chemical">Chemical Hazards</a></li>
+        <li><a href="#" data-link="terror">Security/Terror Attack</a></li>
+        <li><a href="#" data-link="road">Road Safety</a></li>
+        <li><a href="#" data-link="collapse">Building Collapse</a></li>
+    </ul>
+
+    <div id="earthquake-popup" class="popup-overlay">
+        <div class="popup-content">
+            <span class="close-btn">&times;</span>
+            <h2>What is an Earthquake</h2>
+            <p>An earthquake is a sudden shaking of the ground caused by the release of energy stored in the Earth’s crust. This release of energy happens when rocks that have been under stress suddenly rupture or slip along faults. The point directly above the rupture on the surface is the **epicenter**.</p>
+            
+            <div class="section-separator"></div>
+
+            <h2>Preparedness & Mitigation</h2>
+            <h3>Before an Earthquake</h3>
+            <ul>
+                <li>Check if your area is seismically active.</li>
+                <li>Secure heavy furniture, shelves, and appliances to the wall.</li>
+                <li>Prepare an **Emergency Kit** with water, non-perishable food, first-aid, and a flashlight.</li>
+            </ul>
+            <h3>During an Earthquake: Drop, Cover, and Hold On</h3>
+            <ul>
+                <li>**DROP** immediately onto your hands and knees.</li>
+                <li>**COVER** your head and neck with your arms or get under a sturdy table or desk.</li>
+                <li>**HOLD ON** to your cover until the shaking stops.</li>
+                <li>Stay away from glass, windows, and exterior walls.</li>
+            </ul>
+            <h3>After an Earthquake</h3>
+            <ul>
+                <li>Expect **aftershocks**.</li>
+                <li>Check for injuries and damage (especially gas leaks).</li>
+                <li>Do **NOT** enter damaged buildings.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="fire-popup" class="popup-overlay">
+        <div class="popup-content">
+            <span class="close-btn">&times;</span>
+            <h2>Key Fire Response Actions</h2>
+            <p>Effective fire response focuses on rapid **detection, safe evacuation, and containment**. Every second counts to save lives and limit property damage.</p>
+            
+            <div class="section-separator"></div>
+
+            <h2>Emergency Procedures</h2>
+            <h3>Immediate Response</h3>
+            <ul>
+                <li>**Sound the Alarm:** Activate the nearest fire alarm and shout "FIRE!" to alert everyone.</li>
+                <li>**Call for Help:** Immediately call the Fire Brigade (**101 in India**) after safely evacuating.</li>
+                <li>**Check Doors:** Before opening a door, check for heat using the **back of your hand**. If it's hot, do not open it—use an alternate route.</li>
+            </ul>
+            <h3>If Trapped by Smoke</h3>
+            <ul>
+                <li>**Crawl Low:** Smoke and heat rise. Crawl low to the ground where the air is cleaner and cooler.</li>
+                <li>**Cover Vents:** Use a cloth or towel to cover vents or cracks under the door to prevent smoke from entering.</li>
+            </ul>
+            <h3>If Your Clothes Catch Fire: Stop, Drop, and Roll</h3>
+            <p>This is a critical life-saving procedure:</p>
+            <ul>
+                <li>**STOP** immediately. Do not run.</li>
+                <li>**DROP** to the ground.</li>
+                <li>**ROLL** over and over to smother the flames.</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div id="flood-popup" class="popup-overlay">
+        <div class="popup-content">
+            <span class="close-btn">&times;</span>
+            <h2>Understanding Flood Risk</h2>
+            <p>Flood awareness is the knowledge of how floods happen, what impacts they cause, and how to prepare and respond to them. Floods are often intensified by heavy monsoon rainfall, blocked drains, and inadequate infrastructure.</p>
+            
+            <div class="section-separator"></div>
+            
+            <h2>Evacuation and Safety Rules</h2>
+            <h3>The Danger of Water</h3>
+            <ul>
+                <li>**Turn Around, Don't Drown:** Never drive or walk through floodwaters. Just **six inches of moving water** can knock an adult off their feet.</li>
+                <li>**Avoid Wires:** Do not touch electrical equipment or wires, as floodwater can be electrified.</li>
+                <li>**Avoid Drinking Water:** Do not use tap water for drinking or cooking until officials confirm it is safe.</li>
+            </ul>
+            <h3>Evacuation Steps</h3>
+            <ul>
+                <li>**Listen to Warnings:** Follow alerts from local authorities (TV, radio, mobile apps like FloodWatch India).</li>
+                <li>**Move to Higher Ground:** Quickly move to the upper floors of a building or a designated elevated safe area.</li>
+                <li>**Prepare a Go Bag:** Have an emergency kit with food, water, medicine, and critical documents ready for a quick exit.</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div id="cyclone-popup" class="popup-overlay">
+        <div class="popup-content">
+            <span class="close-btn">&times;</span>
+            <h2>Cyclone & Storm Preparedness</h2>
+            <p>Cyclones (Tropical Storms) bring devastating winds, torrential rainfall, and storm surges. India’s coastal regions, particularly the Bay of Bengal and Arabian Sea, are highly vulnerable.</p>
+            
+            <div class="section-separator"></div>
+
+            <h2>Pre-Cyclone Actions</h2>
+            <ul>
+                <li>**Secure Structures:** Trim dead branches from trees and secure loose items outside (e.g., dustbins, tools).</li>
+                <li>**Stock Supplies:** Store extra drinking water, non-perishable food, and a battery-operated radio.</li>
+                <li>**Review Evacuation Route:** Know the quickest, safest route to your designated cyclone shelter or high-ground area.</li>
+            </ul>
+            <h3>During the Cyclone</h3>
+            <ul>
+                <li>**Stay Indoors:** Remain inside a safe, sturdy building, preferably in an interior room away from windows and doors.</li>
+                <li>**Ignore the Eye:** If the storm's center (the eye) passes, the winds may stop suddenly. This is temporary! Stay sheltered, as high winds will return from the opposite direction shortly.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="tsunami-popup" class="popup-overlay">
+        <div class="popup-content">
+            <span class="close-btn">&times;</span>
+            <h2>Tsunami Readiness</h2>
+            <p>A tsunami is a series of powerful ocean waves caused by large-scale disturbances like an underwater earthquake, volcanic eruption, or landslide. They pose a grave risk to all coastal areas.</p>
+            
+            <div class="section-separator"></div>
+
+            <h2>Warning Signs & Response</h2>
+            <h3>Natural Warning Signs</h3>
+            <p>The ocean often recedes rapidly and unusually far before the first large wave arrives. This is your most critical warning sign.</p>
+            <ul>
+                <li>A strong or long **earthquake** is the primary natural warning.</li>
+                <li>A loud **roar** or unusual noise from the ocean.</li>
+                <li>The **sudden, rapid recession** of water from the beach.</li>
+            </ul>
+            <h3>Immediate Action</h3>
+            <ul>
+                <li>If you feel an earthquake near the coast, do not wait for an official warning. **Immediately move inland to higher ground.**</li>
+                <li>Tsunami waves can continue for hours. Do not return to the coast until officials declare it safe.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="landslide-popup" class="popup-overlay">
+        <div class="popup-content">
+            <span class="close-btn">&times;</span>
+            <h2>Landslide Safety</h2>
+            <p>Landslides involve the movement of a mass of rock, debris, or earth down a slope. They are common in hilly and mountainous regions, often triggered by heavy rainfall or earthquakes.</p>
+
+            <div class="section-separator"></div>
+
+            <h2>Key Safety Measures</h2>
+            <h3>Warning Signs</h3>
+            <ul>
+                <li>Unusual sounds, like trees cracking or boulders knocking together.</li>
+                <li>New cracks or unusual bulges in the ground, roads, or pavements.</li>
+                <li>Tilting or cracking of utility poles or retaining walls.</li>
+            </ul>
+            <h3>Immediate Action</h3>
+            <ul>
+                <li>If you suspect an imminent landslide, **evacuate immediately**.</li>
+                <li>If you are caught in a moving slide, roll into a ball and protect your head.</li>
+                <li>Never cross a landslide-prone area at night during heavy rains.</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div id="heatwave-popup" class="popup-overlay">
+        <div class="popup-content">
+            <span class="close-btn">&times;</span>
+            <h2>Heat Wave Safety</h2>
+            <p>A heat wave is a prolonged period of excessively hot weather, which can be dangerous, especially when accompanied by high humidity. Heatstroke and dehydration are major risks.</p>
+
+            <div class="section-separator"></div>
+
+            <h2>Staying Cool and Hydrated</h2>
+            <h3>Protect Yourself</h3>
+            <ul>
+                <li>**Stay Hydrated:** Drink plenty of water and ORS (Oral Rehydration Solution), even if you don't feel thirsty. Avoid alcohol and sugary drinks.</li>
+                <li>**Stay Indoors:** Limit outdoor activities, especially between 12 PM and 4 PM.</li>
+                <li>**Wear appropriate clothing:** Use light-colored, loose-fitting, and cotton clothes.</li>
+                <li>**Know the Symptoms:** Watch for signs of heat exhaustion: heavy sweating, paleness, muscle cramps, and faintness.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="pandemic-popup" class="popup-overlay">
+        <div class="popup-content">
+            <span class="close-btn">&times;</span>
+            <h2>Epidemic & Pandemic Preparedness</h2>
+            <p>An epidemic is a sudden increase in cases of a disease in a specific area, while a pandemic is an epidemic that has spread across multiple countries or continents. Preparedness focuses on hygiene and isolation.</p>
+
+            <div class="section-separator"></div>
+
+            <h2>Controlling Disease Spread</h2>
+            <ul>
+                <li>**Practice Excellent Hygiene:** Wash hands frequently with soap and water for at least 20 seconds.</li>
+                <li>**Wear Masks:** Use masks in crowded indoor settings or as advised by health officials.</li>
+                <li>**Maintain Distance:** Follow social distancing guidelines to limit transmission.</li>
+                <li>**Follow Official Advice:** Trust and follow guidelines from the World Health Organization (WHO) and local health ministries.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="chemical-popup" class="popup-overlay">
+        <div class="popup-content">
+            <span class="close-btn">&times;</span>
+            <h2>Chemical Hazard Response</h2>
+            <p>A chemical hazard can occur due to accidental release of toxic industrial materials, requiring immediate and decisive action to avoid contamination and health risks.</p>
+
+            <div class="section-separator"></div>
+
+            <h2>Shelter-in-Place Protocol</h2>
+            <h3>The Primary Response</h3>
+            <p>In most chemical emergencies, the safest action is to **Shelter-in-Place** (staying indoors and making the area airtight) rather than evacuating into the chemical cloud.</p>
+            <ul>
+                <li>**Go Inside Immediately:** Get indoors and close all windows and doors.</li>
+                <li>**Shut Down Systems:** Turn off all fans, air conditioning, and heating systems.</li>
+                <li>**Seal Openings:** Use duct tape or plastic sheeting to seal exterior openings, cracks, and vents.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="terror-popup" class="popup-overlay">
+        <div class="popup-content">
+            <span class="close-btn">&times;</span>
+            <h2>Security & Terror Attack Protocol</h2>
+            <p>Security protocols focus on minimizing casualties and maximizing safety in a volatile situation. The official advice is often summarized as Run, Hide, Tell.</p>
+
+            <div class="section-separator"></div>
+
+            <h2>Run, Hide, Tell</h2>
+            <ul>
+                <li>**RUN:** If there is a safe and clear escape route, run away from the danger. Do not carry belongings.</li>
+                <li>**HIDE:** If escape is not possible, find a secure place to hide. Barricade the door if possible, silence your phone, and stay quiet.</li>
+                <li>**TELL (Call):** Once you are in a safe place, call the Police (**100 in India**) with precise information about the location, attackers, and weapons.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="road-popup" class="popup-overlay">
+        <div class="popup-content">
+            <span class="close-btn">&times;</span>
+            <h2>Road Safety Basics</h2>
+            <p>Road accidents are a leading cause of injury. Adhering to simple safety rules as a pedestrian, cyclist, or passenger is vital.</p>
+
+            <div class="section-separator"></div>
+
+            <h2>Rules for Students</h2>
+            <ul>
+                <li>**Use Crosswalks:** Always use pedestrian crossings, foot overbridges, or underpasses.</li>
+                <li>**Look Both Ways:** Follow the **"Look Left, Look Right, Look Left Again"** rule before crossing any road.</li>
+                <li>**Bus Safety:** Wait for the bus to stop completely before approaching it. Never push or run near a moving bus.</li>
+                <li>**Wear Seatbelts/Helmets:** Always wear a seatbelt when in a car and a helmet when on a two-wheeler.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="collapse-popup" class="popup-overlay">
+        <div class="popup-content">
+            <span class="close-btn">&times;</span>
+            <h2>Building Collapse Response</h2>
+            <p>A building collapse is a terrifying event. Survival relies on protective action and self-rescue techniques until professional help arrives.</p>
+
+            <div class="section-separator"></div>
+
+            <h2>If Trapped in Rubble</h2>
+            <ul>
+                <li>**Protect Yourself:** Use your arms to cover your head and mouth to protect against falling dust and debris.</li>
+                <li>**Signal Rescuers:** If possible, bang on a pipe or wall to alert rescuers to your location. Shout only as a last resort, as shouting can cause you to inhale dust.</li>
+                <li>**Stay Still:** Try to stay in one place to avoid further injury or causing more debris to fall.</li>
+                <li>**Cover Your Mouth:** Cover your nose and mouth with a piece of cloth to filter the air.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const resourceLinks = document.querySelectorAll('.resource-list li a');
+            const popupOverlays = document.querySelectorAll('.popup-overlay');
+            const closeButtons = document.querySelectorAll('.close-btn');
+            
+            // Universal function to close a popup element
+            function closePopup(popupElement) {
+                if (popupElement) {
+                    popupElement.style.display = 'none';
+                }
+            }
+
+            // 1. Attach listeners to the main resource buttons
+            resourceLinks.forEach(link => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault(); 
+                    const targetId = link.getAttribute('data-link') + '-popup';
+                    const targetPopup = document.getElementById(targetId);
+                    
+                    // First, close any potentially visible popups
+                    popupOverlays.forEach(overlay => closePopup(overlay));
+
+                    if (targetPopup) {
+                        targetPopup.style.display = 'flex';
+                    }
+                });
+            });
+
+            // 2. Attach listeners to all close buttons
+            closeButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    closePopup(button.closest('.popup-overlay'));
+                });
+            });
+
+            // 3. Attach listeners to the overlay to close when clicking outside the content
+            popupOverlays.forEach(overlay => {
+                overlay.addEventListener('click', (event) => {
+                    // Check if the click target is the overlay itself
+                    if (event.target === overlay) {
+                        closePopup(overlay);
+                    }
+                });
+            });
+            
+            // Optional: Close on ESC key press
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') {
+                    // Find the currently visible popup (only one should be visible)
+                    const visiblePopup = document.querySelector('.popup-overlay[style*="flex"]');
+                    if (visiblePopup) {
+                        closePopup(visiblePopup);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

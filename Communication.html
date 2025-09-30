@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Call & Message Options</title>
+    <style>
+        /* CSS Variables for a centralized, vibrant color palette */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #4CAF50, #2E7D32); /* Vibrant green gradient */
+            --secondary-gradient: linear-gradient(135deg, #2196F3, #1565C0); /* Bright blue gradient */
+            --background-gradient: linear-gradient(to right top, #64b5f6, #42a5f5, #2196f3, #038cfc);
+            --container-bg-color: #ffffff;
+            --text-color: #333333;
+            --shadow-color: rgba(0, 0, 0, 0.2);
+            --transition-speed: 0.4s;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: var(--background-gradient); /* Use a vibrant background gradient */
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            line-height: 1.6;
+        }
+
+        .main-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .option-container {
+            text-align: center;
+            background-color: var(--container-bg-color);
+            padding: 50px 30px;
+            border-radius: 20px; /* More rounded corners */
+            box-shadow: 0 10px 25px var(--shadow-color); /* More prominent shadow */
+            flex: 1 1 350px;
+            transition: transform var(--transition-speed) ease-in-out, box-shadow var(--transition-speed) ease-in-out;
+            animation: fadeIn 1s ease-out forwards;
+        }
+        
+        .option-container:hover {
+            transform: translateY(-10px); /* Enhanced lift effect */
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .call-option { animation-delay: 0.2s; }
+        .message-option { animation-delay: 0.4s; }
+
+        h2 {
+            color: var(--text-color);
+            margin-bottom: 25px;
+            font-size: 2rem; /* Larger font size */
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+
+        .call-button {
+            background: var(--primary-gradient); /* Use gradient background */
+            color: white;
+            padding: 16px 32px;
+            font-size: 1.2rem;
+            text-decoration: none;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color var(--transition-speed) ease, transform var(--transition-speed) ease;
+            display: inline-block;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.4);
+        }
+
+        .call-button:hover {
+            background-color: #1eaa4e; /* Fallback for older browsers */
+            transform: translateY(-4px); /* Enhanced lift on hover */
+            box-shadow: 0 6px 15px rgba(76, 175, 80, 0.6);
+        }
+
+        .message-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd; /* Thicker border */
+            border-radius: 10px;
+            font-size: 1rem;
+            height: 120px;
+            resize: none;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+        }
+        
+        .message-input:focus {
+            outline: none;
+            border-color: #2196F3;
+            box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.3); /* Colorful focus ring */
+        }
+
+        .send-button {
+            background: var(--secondary-gradient); /* Use gradient background */
+            color: white;
+            padding: 16px 32px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color var(--transition-speed) ease, transform var(--transition-speed) ease;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(33, 150, 243, 0.4);
+        }
+
+        .send-button:hover {
+            background-color: #0056b3; /* Fallback for older browsers */
+            transform: translateY(-4px); /* Enhanced lift on hover */
+            box-shadow: 0 6px 15px rgba(33, 150, 243, 0.6);
+        }
+
+        /* Responsive design for smaller screens */
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+                align-items: center;
+                max-width: 100%;
+            }
+            .option-container {
+                padding: 30px 20px;
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Direct Call Option -->
+        <div class="option-container call-option">
+            <h2>Call Directly</h2>
+            <a href="tel:8125966586" class="call-button">📞 Call 81259 66586</a>
+        </div>
+
+        <!-- Direct Message Option -->
+        <div class="option-container message-option">
+            <h2>Send a Message</h2>
+            <textarea id="messageText" class="message-input" placeholder="Type your message here..."></textarea>
+            <button class="send-button" onclick="sendMessage()">✉️ Send</button>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const phoneNumber = '8125966586';
+            const message = document.getElementById('messageText').value.trim();
+            if (message) {
+                window.location.href = `sms:${phoneNumber}?body=${encodeURIComponent(message)}`;
+            } else {
+                console.log('Please type a message before sending.');
+                // A better UX would be to display a message on the page instead of a console log.
+            }
+        }
+    </script>
+</body>
+</html>

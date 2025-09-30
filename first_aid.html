@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive First Aid Reference Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* === CSS Variables for Theme === */
+        :root {
+            --paper-color: #f7f7f7;
+            --header-color: #3498db; /* Blue for Information/Reference */
+            --text-color: #2c3e50;
+            --border-color: #bdc3c7;
+            --mono-font: 'Roboto Mono', monospace;
+            --danger-color: #e74c3c;
+            --success-color: #2ecc71;
+        }
+
+        /* === General Page Styling === */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ecf0f1; /* Light grey background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        #guide-container {
+            width: 100%;
+            max-width: 900px;
+            background-color: var(--paper-color);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            color: var(--text-color);
+            line-height: 1.6;
+            border-radius: 8px;
+        }
+
+        /* === Header === */
+        header {
+            border-bottom: 4px double var(--header-color);
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: var(--mono-font);
+            color: var(--header-color);
+            font-size: 2.2em;
+            margin: 0 0 10px 0;
+        }
+        
+        #disclaimer-header {
+            font-size: 0.9em;
+            color: var(--danger-color);
+            font-weight: bold;
+        }
+
+        /* === Sections === */
+        .first-aid-section {
+            background-color: #fcfcfc;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            margin-top: 25px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .first-aid-section:hover {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-family: var(--mono-font);
+            font-size: 1.6em;
+            background-color: var(--header-color);
+            color: white;
+            padding: 15px 20px;
+            margin: 0;
+            border-radius: 5px 5px 0 0;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        h2::after {
+            content: '+';
+            font-size: 1.5em;
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.3s;
+        }
+        
+        .section-open h2::after {
+            content: '-';
+            transform: translateY(-50%) rotate(0deg); /* No rotation needed for '-' */
+        }
+        
+        .section-open h2 {
+            background-color: var(--text-color); /* Darker header when open */
+        }
+
+        /* === Content Area === */
+        .procedure-content {
+            padding: 0 20px;
+            max-height: 0; /* Key for collapse effect */
+            overflow: hidden;
+            transition: max-height 0.7s ease-in-out;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .section-open .procedure-content {
+            max-height: 2000px; /* Must be large enough to contain all content */
+            padding-bottom: 20px;
+        }
+
+        /* === Procedure List (Styling similar to your original) === */
+        .procedure-item {
+            display: flex;
+            margin-top: 20px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            font-family: var(--mono-font);
+            font-size: 1.8em;
+            font-weight: bold;
+            color: var(--danger-color);
+            margin-right: 15px;
+            line-height: 1;
+        }
+
+        .step-details strong {
+            display: block;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            color: var(--text-color);
+        }
+        
+        .step-details p {
+            font-size: 0.95em;
+            color: #555;
+            margin: 0;
+        }
+
+        /* Highlight for important notes */
+        .important-note {
+            background-color: #f9e1e1;
+            padding: 10px;
+            border-left: 5px solid var(--danger-color);
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        /* === Footer === */
+        footer {
+            margin-top: 50px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
+            font-size: 0.85em;
+            text-align: center;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="guide-container">
+        
+        <header>
+            <h1>FIRST AID PROTOCOL GUIDE</h1>
+            <p id="disclaimer-header">
+                CLICK ANY SECTION TO EXPAND THE STEP-BY-STEP PROCEDURE. **CALL EMERGENCY SERVICES FIRST.**
+            </p>
+        </header>
+
+        <div class="first-aid-section" id="hemorrhage-section">
+            <h2 onclick="toggleSection('hemorrhage-section')">// 01. SEVERE BLEEDING (MAJOR HEMORRHAGE)</h2>
+            <div class="procedure-content">
+                <p><strong>Goal:</strong> Stop the bleeding to prevent shock and blood loss.</p>
+
+                <div class="procedure-item">
+                    <div class="step-number">1</div>
+                    <div class="step-details">
+                        <strong>DANGER, RESPONSE, SEND (DRS)</strong>
+                        <p>Ensure the scene is safe (D). Check for response (R). **Call emergency services (Send/911/112) immediately** or instruct someone else to call.</p>
+                    </div>
+                </div>
+
+                <div class="procedure-item">
+                    <div class="step-number">2</div>
+                    <div class="step-details">
+                        <strong>DIRECT, FIRM PRESSURE</strong>
+                        <p>Use a clean dressing, cloth, or even your gloved hand. Apply **direct, unyielding pressure** to the wound. **Do not peek** to see if bleeding has stopped.</p>
+                    </div>
+                </div>
+
+                <div class="procedure-item">
+                    <div class="step-number">3</div>
+                    <div class="step-details">
+                        <strong>ELEVATE AND REINFORCE</strong>
+                        <p>If there is no suspected fracture, **raise the injured limb above the level of the heart.** If the dressing soaks through, **do not remove it**; simply add another on top and continue pressure.</p>
+                    </div>
+                </div>
+                
+                <div class="procedure-item">
+                    <div class="step-number">4</div>
+                    <div class="step-details">
+                        <strong>SECURE AND MANAGE SHOCK</strong>
+                        <p>Once bleeding is controlled, secure the dressing with a firm bandage. Treat for shock by lying the patient down and keeping them warm. **Continuously monitor** until help arrives.</p>
+                    </div>
+                </div>
+                
+                <div class="important-note">
+                    If bleeding cannot be controlled by direct pressure, consider using a **tourniquet** (if trained and available) on the limb, placed high above the wound.
+                </div>
+            </div>
+        </div>
+
+        <div class="first-aid-section" id="cpr-section">
+            <h2 onclick="toggleSection('cpr-section')">// 02. ADULT CARDIAC ARREST (CPR)</h2>
+            <div class="procedure-content">
+                <p><strong>Goal:</strong> Maintain blood flow to the brain and heart until emergency services arrive.</p>
+
+                <div class="procedure-item">
+                    <div class="step-number">1</div>
+                    <div class="step-details">
+                        <strong>CHECK & CALL (D-R-S)</strong>
+                        <p>Scene safe? Check for response. **Send:** Call emergency services immediately. **Airway:** Open the airway using a head-tilt/chin-lift. **Breathing:** Look, listen, and feel for normal breathing for no more than 10 seconds. If no breathing or only gasping, start CPR.</p>
+                    </div>
+                </div>
+
+                <div class="procedure-item">
+                    <div class="step-number">2</div>
+                    <div class="step-details">
+                        <strong>CHEST COMPRESSIONS (30)</strong>
+                        <p>Place the heel of one hand in the center of the chest, then the heel of the other hand on top. Give **30 compressions** hard and fast: at a rate of 100-120 per minute, and a depth of at least 2 inches (5 cm).</p>
+                    </div>
+                </div>
+
+                <div class="procedure-item">
+                    <div class="step-number">3</div>
+                    <div class="step-details">
+                        <strong>RESCUE BREATHS (2)</strong>
+                        <p>Give **2 rescue breaths**, ensuring the chest rises with each breath. Pinch the nose, maintain the head-tilt/chin-lift, and seal your mouth over theirs.</p>
+                    </div>
+                </div>
+                
+                <div class="procedure-item">
+                    <div class="step-number">4</div>
+                    <div class="step-details">
+                        <strong>CONTINUE AND DE-FIB (AED)</strong>
+                        <p>**Continue cycles of 30 compressions and 2 breaths (30:2)** until help arrives, the person wakes up, or you are too exhausted to continue. If an **AED** arrives, use it immediately and follow its voice prompts.</p>
+                    </div>
+                </div>
+                
+                <div class="important-note">
+                    If unwilling or unable to give rescue breaths, perform **Hands-Only CPR** (continuous, high-quality chest compressions).
+                </div>
+            </div>
+        </div>
+        
+        <div class="first-aid-section" id="choking-section">
+            <h2 onclick="toggleSection('choking-section')">// 03. ADULT CHOKING (SEVERE OBSTRUCTION)</h2>
+            <div class="procedure-content">
+                <p><strong>Goal:</strong> Dislodge the foreign body blocking the airway.</p>
+
+                <div class="procedure-item">
+                    <div class="step-number">1</div>
+                    <div class="step-details">
+                        <strong>ASSESS AND ENCOURAGE</strong>
+                        <p>Ask: "Are you choking?" If the person nods, but cannot speak, cough, or breathe, the obstruction is severe. **Call emergency services immediately.**</p>
+                    </div>
+                </div>
+
+                <div class="procedure-item">
+                    <div class="step-number">2</div>
+                    <div class="step-details">
+                        <strong>BACK BLOWS (5)</strong>
+                        <p>Stand to the side and slightly behind the person. Support the chest with one hand, bend them forward. Give **5 sharp blows** between the shoulder blades with the heel of your other hand.</p>
+                    </div>
+                </div>
+
+                <div class="procedure-item">
+                    <div class="step-number">3</div>
+                    <div class="step-details">
+                        <strong>ABDOMINAL THRUSTS (5)</strong>
+                        <p>If back blows fail, stand behind the person. Place a fist just above the navel (belly button). Grasp the fist with your other hand. Deliver **5 quick inward and upward thrusts**.</p>
+                    </div>
+                </div>
+                
+                <div class="procedure-item">
+                    <div class="step-number">4</div>
+                    <div class="step-details">
+                        <strong>CONTINUE OR COLLAPSE</strong>
+                        <p>Continue alternating **5 back blows and 5 abdominal thrusts** until the object is expelled or the person becomes unconscious. If they become unconscious, immediately begin CPR (modified for an obstruction).</p>
+                    </div>
+                </div>
+                
+                <div class="important-note">
+                    **For pregnant women or very large people**, use chest thrusts (same location as CPR compressions) instead of abdominal thrusts.
+                </div>
+            </div>
+        </div>
+        
+        <div class="first-aid-section" id="burns-section">
+            <h2 onclick="toggleSection('burns-section')">// 04. BURN CARE (HEAT/THERMAL)</h2>
+            <div class="procedure-content">
+                <p><strong>Goal:</strong> Cool the burn to limit tissue damage and prevent infection.</p>
+
+                <div class="procedure-item">
+                    <div class="step-number">1</div>
+                    <div class="step-details">
+                        <strong>STOP THE BURNING PROCESS</strong>
+                        <p>Remove the person from the source of the heat. If clothing is on fire, **Stop, Drop, and Roll.** Remove clothing or jewelry near the burn **unless it is stuck to the skin.**</p>
+                    </div>
+                </div>
+
+                <div class="procedure-item">
+                    <div class="step-number">2</div>
+                    <div class="step-details">
+                        <strong>COOL THE BURN</strong>
+                        <p>Run the burn under **cool or lukewarm running water** for a minimum of **20 minutes**. Do NOT use ice, ice water, or greasy substances like butter or oil.</p>
+                    </div>
+                </div>
+
+                <div class="procedure-item">
+                    <div class="step-number">3</div>
+                    <div class="step-details">
+                        <strong>COVER THE WOUND</strong>
+                        <p>After cooling, cover the burn with a clean, non-fluffy, non-adhesive dressing (like plastic wrap or a clean sheet). This helps prevent infection and relieve pain.</p>
+                    </div>
+                </div>
+                
+                <div class="procedure-item">
+                    <div class="step-number">4</div>
+                    <div class="step-details">
+                        <strong>SEEK MEDICAL HELP</strong>
+                        <p>Call emergency services for large burns, burns to the face/hands/genitals, or any burn that is deep (full-thickness) or causes blistering larger than a 50p/quarter coin.</p>
+                    </div>
+                </div>
+                
+                <div class="important-note">
+                    Treating a burn for the full **20 minutes of cooling** is critical and often overlooked.
+                </div>
+            </div>
+        </div>
+
+
+        <footer>
+            **GUIDANCE DISCLAIMER:** This guide is for educational reference only. It does not replace certified, hands-on training (e.g., from Red Cross or St. John Ambulance). **In an actual emergency, always prioritize calling professional emergency services (911/112/000) first.**
+        </footer>
+    </div>
+
+    <script>
+        // Function to toggle the collapse/expand feature for the main sections
+        function toggleSection(sectionId) {
+            const sectionElement = document.getElementById(sectionId);
+            
+            // Toggles the 'section-open' class
+            sectionElement.classList.toggle('section-open');
+        }
+
+        // Initialize by ensuring none are open on load
+        window.onload = function() {
+             // You can optionally open one section by default if you want:
+             // toggleSection('hemorrhage-section'); 
+        };
+    </script>
+
+</body>
+</html>

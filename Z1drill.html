@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earthquake Safety Drill for Kids</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: 'Comic Neue', cursive; /* A more child-friendly font */
+            background: linear-gradient(135deg, #a8d8e0, #c3e8eb, #e0f2f7); /* Soft, playful gradient */
+            color: #333;
+            text-align: center;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden; /* Prevent horizontal scroll from background elements */
+            position: relative; /* For positioning background elements */
+        }
+
+        /* Fun Background Elements (CSS only for simplicity) */
+        body::before, body::after {
+            content: '';
+            position: absolute;
+            background-repeat: no-repeat;
+            pointer-events: none; /* Make them unclickable */
+            z-index: -1; /* Keep them behind content */
+        }
+
+        body::before { /* Cloud 1 */
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60"><path fill="%23fff" d="M75,25A25,25 0 0,1 50,0A25,25 0 0,1 25,25A25,25 0 0,1 0,25A20,20 0 0,0 20,45A20,20 0 0,0 40,25A20,20 0 0,0 60,45A20,20 0 0,0 80,25A20,20 0 0,0 100,45A25,25 0 0,0 75,25Z"/></svg>');
+            width: 150px;
+            height: 90px;
+            top: 5%;
+            left: 5%;
+            opacity: 0.6;
+            animation: float 10s infinite ease-in-out alternate;
+        }
+
+        body::after { /* Cloud 2 */
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60"><path fill="%23fff" d="M75,25A25,25 0 0,1 50,0A25,25 0 0,1 25,25A25,25 0 0,1 0,25A20,20 0 0,0 20,45A20,20 0 0,0 40,25A20,20 0 0,0 60,45A20,20 0 0,0 80,25A20,20 0 0,0 100,45A25,25 0 0,0 75,25Z"/></svg>');
+            width: 120px;
+            height: 72px;
+            bottom: 10%;
+            right: 10%;
+            opacity: 0.5;
+            animation: float 12s infinite ease-in-out alternate-reverse;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px) translateX(0px); }
+            50% { transform: translateY(-10px) translateX(10px); }
+            100% { transform: translateY(0px) translateX(0px); }
+        }
+
+        /* Container for the drill content */
+        .container {
+            max-width: 850px; /* Slightly wider for better image display */
+            background-color: #ffffff; /* Crisp white background for content */
+            padding: 40px 30px; /* Adjusted padding */
+            border-radius: 25px; /* More rounded corners */
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+            animation: fadeIn 1s ease-out; /* Faster fade-in */
+            width: 95%; /* Wider on smaller screens */
+            text-align: center; /* Center align all text within the container */
+            position: relative; /* For potential internal decorations */
+            border: 5px solid #ffcc00; /* Fun border color */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Main Title */
+        h1 {
+            font-family: 'Fredoka One', cursive; /* Punchier font for the main title */
+            color: #e74c3c; /* Red, but could be a bright orange/yellow */
+            font-size: 3em; /* Larger title */
+            margin-bottom: 25px;
+            text-shadow: 2px 2px #f9f9f9; /* Subtle text shadow */
+        }
+
+        /* Drill Steps */
+        .drill-step {
+            display: none; /* THIS IS THE KEY: Hides all steps by default */
+            text-align: center;
+        }
+
+        .drill-step.active {
+            display: block; /* THIS IS THE KEY: Only shows the active step (the current "page") */
+        }
+
+        .step-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px; /* Increased gap */
+            margin-top: 25px;
+        }
+
+        .step-content h2 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2.2em; /* Larger step titles */
+            color: #3498db; /* Bright blue */
+            margin-bottom: 10px;
+            text-shadow: 1px 1px #e0f2f7;
+        }
+
+        .step-content p {
+            font-size: 1.3em; /* Larger paragraph text */
+            line-height: 1.7;
+            text-align: center;
+            color: #555; /* Slightly darker text for readability */
+            max-width: 600px; /* Constrain text width */
+        }
+
+        .step-image {
+            width: 100%;
+            max-width: 500px; /* Larger images */
+            border-radius: 20px; /* More rounded image corners */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Clearer image shadow */
+            border: 4px solid #f39c12; /* Fun border around images */
+            transition: transform 0.3s ease-in-out;
+        }
+        .step-image:hover {
+            transform: scale(1.02); /* Slight zoom on hover */
+        }
+
+        /* Buttons Styling */
+        .buttons, .button-group {
+            margin-top: 35px; /* More space above buttons */
+            text-align: center;
+        }
+
+        .btn {
+            padding: 15px 30px; /* Larger buttons */
+            font-size: 1.2em; /* Larger font in buttons */
+            border-radius: 10px; /* More rounded buttons */
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            font-weight: bold; /* Make button text bold */
+            text-transform: uppercase; /* Uppercase button text */
+            letter-spacing: 1px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #startButton {
+            background-color: #2ecc71; /* Green */
+            color: #fff;
+            box-shadow: 0 6px 10px rgba(46, 204, 113, 0.4);
+        }
+
+        #startButton:hover {
+            background-color: #27ae60;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(46, 204, 113, 0.5);
+        }
+
+        #nextButton, #prevButton {
+            background-color: #3498db; /* Blue */
+            color: #fff;
+            margin: 0 15px; /* More space between buttons */
+            display: none;
+            box-shadow: 0 6px 10px rgba(52, 152, 219, 0.4);
+        }
+        
+        #nextButton:hover, #prevButton:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(52, 152, 219, 0.5);
+        }
+
+        #prevButton {
+            background-color: #95a5a6; /* Gray for back button */
+        }
+        
+        #prevButton:hover {
+            background-color: #7f8c8d;
+        }
+
+        /* Completion & Home Buttons */
+        .button-group a.btn { /* Target the 'Back to Home' link button */
+            background-color: #f39c12; /* Orange for home button */
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 6px 10px rgba(243, 156, 18, 0.4);
+        }
+        .button-group a.btn:hover {
+            background-color: #e67e22;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(243, 156, 18, 0.5);
+        }
+
+        #restartButton {
+            background-color: #e74c3c; /* Red for restart button */
+            color: white;
+            box-shadow: 0 6px 10px rgba(231, 76, 60, 0.4);
+        }
+        #restartButton:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(231, 76, 60, 0.5);
+        }
+
+        .button-group {
+            gap: 25px; /* More space between buttons in the group */
+            display: flex; /* Makes the buttons align side-by-side */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 id="drill-title">Earthquake Safety Drill!</h1>
+        
+        <div id="welcome-step" class="drill-step active">
+            <div class="step-content">
+                <h2>Ready for an Adventure?</h2>
+                <p>Uh oh! What if the ground starts shaking? Don't worry, we'll learn how to be super safe! Let's practice **"Drop, Cover, and Hold On!"**</p>
+                <img src="images/z1.jpg" alt="Kids doing earthquake drill" class="step-image">
+                <div class="buttons">
+                    <button id="startButton" class="btn">Let's Start!</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="step-1" class="drill-step">
+            <div class="step-content">
+                <h2>Step 1: DROP like a Pancake!</h2>
+                <p>As soon as you feel wobbly, quickly **drop to your hands and knees!** This helps you stay steady and ready to move.</p>
+                <img src="images/z2.jpg" alt="Kids dropping to the floor" class="step-image">
+            </div>
+        </div>
+
+        <div id="step-2" class="drill-step">
+            <div class="step-content">
+                <h2>Step 2: COVER your Head!</h2>
+                <p>Crawl under a strong **table or desk**. If you can't find one, huddle next to an inside wall and **cover your head and neck with your arms like a helmet!**</p>
+                <img src="images/z3.jpg" alt="Kids covering under a table" class="step-image">
+            </div>
+        </div>
+
+        <div id="step-3" class="drill-step">
+            <div class="step-content">
+                <h2>Step 3: HOLD ON Tight!</h2>
+                <p>**Hold onto a table or desk leg** so it stays with you. Keep holding on until the shaking completely stops. You're doing great!</p>
+                <img src="images/z4.jpg" alt="Kid holding onto a table leg" class="step-image">
+            </div>
+        </div>
+
+        <div id="completion-step" class="drill-step">
+            <div class="step-content">
+                <h2>Hooray! You're an Earthquake Hero!</h2>
+                <p>Fantastic job! You've learned how to stay safe. Remember to always be prepared and practice with your family and friends!</p>
+                <img src="images/z5.jpg" alt="Kids cheering, completed drill" class="step-image">
+                <div class="button-group">
+                    <a href="index.html" class="btn">Back to Home Base</a>
+                    <button id="restartButton" class="btn">Play Again!</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="buttons">
+            <button id="prevButton" class="btn">Previous</button>
+            <button id="nextButton" class="btn">Next Step!</button>
+        </div>
+    </div>
+
+    <script>
+        // Array of all step IDs. Each ID represents a different "page"
+        const steps = ['welcome-step', 'step-1', 'step-2', 'step-3', 'completion-step'];
+        let currentStepIndex = 0;
+
+        const startButton = document.getElementById('startButton');
+        const nextButton = document.getElementById('nextButton');
+        const prevButton = document.getElementById('prevButton');
+        const restartButton = document.getElementById('restartButton');
+
+        function updateDisplay() {
+            // 1. Hide all step-pages
+            document.querySelectorAll('.drill-step').forEach(step => {
+                step.classList.remove('active');
+            });
+            
+            // 2. Show ONLY the current step-page
+            document.getElementById(steps[currentStepIndex]).classList.add('active');
+
+            // 3. Manage the visibility of the global navigation buttons
+            startButton.style.display = 'none';
+            prevButton.style.display = 'none';
+            nextButton.style.display = 'none';
+            
+            const mainButtonsContainer = document.querySelector('.buttons');
+
+            if (currentStepIndex === 0) { // Welcome step (Page 1)
+                startButton.style.display = 'inline-block';
+                mainButtonsContainer.style.display = 'block'; // Ensure container is visible for Start button
+            } else if (currentStepIndex === steps.length - 1) { // Completion step (Last Page)
+                mainButtonsContainer.style.display = 'none'; // Hide global buttons, only show "Play Again" group
+            } else { // Intermediate steps (Pages 2, 3, 4)
+                prevButton.style.display = 'inline-block';
+                nextButton.style.display = 'inline-block';
+                mainButtonsContainer.style.display = 'block'; // Show Prev/Next buttons
+            }
+        }
+
+        // --- Event Listeners to navigate between pages ---
+
+        startButton.addEventListener('click', () => {
+            currentStepIndex = 1; // Go from Welcome (0) to Step 1 (1)
+            updateDisplay();
+        });
+
+        nextButton.addEventListener('click', () => {
+            if (currentStepIndex < steps.length - 1) {
+                currentStepIndex++;
+                updateDisplay();
+            }
+        });
+
+        prevButton.addEventListener('click', () => {
+            if (currentStepIndex > 0) {
+                currentStepIndex--;
+                updateDisplay();
+            }
+        });
+
+        restartButton.addEventListener('click', () => {
+            currentStepIndex = 0; // Go back to the Welcome step (Page 1)
+            updateDisplay();
+        });
+
+        // Initial setup to show the Welcome Step (Page 1)
+        updateDisplay();
+    </script>
+</body>
+</html>

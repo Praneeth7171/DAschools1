@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fire Safety Drill for Kids</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        /* Reusing the child-friendly theme */
+        
+        /* General Body Styles */
+        body {
+            font-family: 'Comic Neue', cursive;
+            /* Changed gradient to be more warm/orange/red-themed for fire */
+            background: linear-gradient(135deg, #fce3a7, #f7c385, #f5a085); 
+            color: #333;
+            text-align: center;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Fun Background Elements (Changed to yellow sparks/flames for visual theme) */
+        body::before, body::after {
+            content: '';
+            position: absolute;
+            background-repeat: no-repeat;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::before { /* Flame/Spark 1 */
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23ffeb3b" d="M50 0 C70 10 90 40 70 70 L50 100 L30 70 C10 40 30 10 50 0 Z"/></svg>');
+            width: 80px;
+            height: 80px;
+            top: 5%;
+            left: 5%;
+            opacity: 0.7;
+            animation: float 10s infinite ease-in-out alternate;
+        }
+
+        body::after { /* Flame/Spark 2 */
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23ff9800" d="M50 0 C70 10 90 40 70 70 L50 100 L30 70 C10 40 30 10 50 0 Z"/></svg>');
+            width: 60px;
+            height: 60px;
+            bottom: 10%;
+            right: 10%;
+            opacity: 0.6;
+            animation: float 12s infinite ease-in-out alternate-reverse;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px) translateX(0px); }
+            50% { transform: translateY(-10px) translateX(10px); }
+            100% { transform: translateY(0px) translateX(0px); }
+        }
+
+        /* Container for the drill content */
+        .container {
+            max-width: 850px;
+            background-color: #ffffff;
+            padding: 40px 30px;
+            border-radius: 25px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            animation: fadeIn 1s ease-out;
+            width: 95%;
+            text-align: center;
+            position: relative;
+            /* Changed border color to represent fire/danger red */
+            border: 5px solid #e74c3c; 
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Main Title */
+        h1 {
+            font-family: 'Fredoka One', cursive;
+            /* Changed title color to a strong orange-red */
+            color: #d35400; 
+            font-size: 3em;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px #f9f9f9;
+        }
+
+        /* Drill Steps (The "Pages") */
+        .drill-step {
+            display: none; 
+            text-align: center;
+        }
+
+        .drill-step.active {
+            display: block;
+        }
+
+        .step-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .step-content h2 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2.2em;
+            /* Changed step title color to green for safety/go */
+            color: #2ecc71; 
+            margin-bottom: 10px;
+            text-shadow: 1px 1px #e0f2f7;
+        }
+
+        .step-content p {
+            font-size: 1.3em;
+            line-height: 1.7;
+            text-align: center;
+            color: #555;
+            max-width: 600px;
+        }
+
+        .step-image {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            /* Changed border to match the main container */
+            border: 4px solid #e74c3c; 
+            transition: transform 0.3s ease-in-out;
+        }
+        .step-image:hover {
+            transform: scale(1.02);
+        }
+
+        /* Buttons Styling (Same as before for consistency) */
+        .buttons, .button-group {
+            margin-top: 35px;
+            text-align: center;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 10px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #startButton {
+            background-color: #2ecc71; /* Green */
+            color: #fff;
+            box-shadow: 0 6px 10px rgba(46, 204, 113, 0.4);
+        }
+
+        #startButton:hover {
+            background-color: #27ae60;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(46, 204, 113, 0.5);
+        }
+
+        #nextButton, #prevButton {
+            background-color: #3498db; /* Blue */
+            color: #fff;
+            margin: 0 15px;
+            display: none;
+            box-shadow: 0 6px 10px rgba(52, 152, 219, 0.4);
+        }
+        
+        #nextButton:hover, #prevButton:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(52, 152, 219, 0.5);
+        }
+
+        #prevButton {
+            background-color: #95a5a6; /* Gray for back button */
+        }
+        
+        #prevButton:hover {
+            background-color: #7f8c8d;
+        }
+
+        /* Completion & Home Buttons */
+        .button-group a.btn { 
+            background-color: #e74c3c; /* Red/Orange for home button (matches fire theme) */
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 6px 10px rgba(231, 76, 60, 0.4);
+        }
+        .button-group a.btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(231, 76, 60, 0.5);
+        }
+
+        #restartButton {
+            background-color: #f39c12; /* Orange for restart button */
+            color: white;
+            box-shadow: 0 6px 10px rgba(243, 156, 18, 0.4);
+        }
+        #restartButton:hover {
+            background-color: #e67e22;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(243, 156, 18, 0.5);
+        }
+
+        .button-group {
+            gap: 25px;
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 id="drill-title">Fire Safety Drill!</h1>
+        
+        <div id="welcome-step" class="drill-step active">
+            <div class="step-content">
+                <h2>Ready to be a Fire Fighter!</h2>
+                <p>We need to practice what to do when we smell smoke or hear the smoke alarm. Our goal is to get out fast, stay low, and go to our **Safe Meeting Spot!**</p>
+                <img src="https://i.imgur.com/w2YvB1e.png" alt="Kids ready for fire drill" class="step-image"> 
+                <div class="buttons">
+                    <button id="startButton" class="btn">Start the Alarm!</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="step-1" class="drill-step">
+            <div class="step-content">
+                <h2>Step 1: ALARM! Get Out and Stay Out!</h2>
+                <p>If you hear the smoke alarm, **get out immediately!** Do not stop for toys or pets. Once you are outside, **NEVER go back inside** for any reason.</p>
+                <img src="https://i.imgur.com/G9L2r9J.png" alt="Kid running out of a room" class="step-image">
+            </div>
+        </div>
+
+        <div id="step-2" class="drill-step">
+            <div class="step-content">
+                <h2>Step 2: CRAWL Low to the Ground!</h2>
+                <p>Smoke rises! If you see smoke, **crawling is faster and safer.** Get on your hands and knees. Check doors for heat with the **back of your hand** before opening them.</p>
+                <img src="https://i.imgur.com/zV8V1rD.png" alt="Kid crawling on floor" class="step-image">
+            </div>
+        </div>
+
+        <div id="step-3" class="drill-step">
+            <div class="step-content">
+                <h2>Step 3: STOP, DROP, and ROLL!</h2>
+                <p>If your clothes catch fire, remember this superhero move: **STOP** where you are, **DROP** to the ground, and **ROLL** over and over to put out the flames!</p>
+                <img src="https://i.imgur.com/G9L2r9J.png" alt="Kid doing stop, drop, and roll" class="step-image">
+            </div>
+        </div>
+        
+        <div id="step-4" class="drill-step">
+            <div class="step-content">
+                <h2>Step 4: Go to Your Safe Meeting Spot!</h2>
+                <p>Every family needs a safe place outside, like a neighbor's tree or mailbox. Go there right away! Once everyone is safe, an adult should call **911** or their local emergency number.</p>
+                <img src="https://i.imgur.com/zV8V1rD.png" alt="Family meeting outside" class="step-image">
+            </div>
+        </div>
+
+        <div id="completion-step" class="drill-step">
+            <div class="step-content">
+                <h2>Fantastic! You Beat the Fire!</h2>
+                <p>You followed all the steps and made it to safety! Practicing these steps makes you a fire safety expert and helps keep your whole family safe.</p>
+                <img src="https://i.imgur.com/w2YvB1e.png" alt="Kids cheering, completed drill" class="step-image">
+                <div class="button-group">
+                    <a href="index.html" class="btn">Back to All Drills</a> 
+                    <button id="restartButton" class="btn">Do the Drill Again!</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="buttons">
+            <button id="prevButton" class="btn">Previous</button>
+            <button id="nextButton" class="btn">Next Step!</button>
+        </div>
+    </div>
+
+    <script>
+        // Array of all step IDs. Each ID represents a different "page"
+        const steps = ['welcome-step', 'step-1', 'step-2', 'step-3', 'step-4', 'completion-step'];
+        let currentStepIndex = 0;
+
+        const startButton = document.getElementById('startButton');
+        const nextButton = document.getElementById('nextButton');
+        const prevButton = document.getElementById('prevButton');
+        const restartButton = document.getElementById('restartButton');
+
+        function updateDisplay() {
+            // 1. Hide all step-pages
+            document.querySelectorAll('.drill-step').forEach(step => {
+                step.classList.remove('active');
+            });
+            
+            // 2. Show ONLY the current step-page
+            document.getElementById(steps[currentStepIndex]).classList.add('active');
+
+            // 3. Manage the visibility of the global navigation buttons
+            startButton.style.display = 'none';
+            prevButton.style.display = 'none';
+            nextButton.style.display = 'none';
+            
+            const mainButtonsContainer = document.querySelector('.buttons');
+
+            if (currentStepIndex === 0) { // Welcome step (Page 1)
+                startButton.style.display = 'inline-block';
+                mainButtonsContainer.style.display = 'block'; 
+            } else if (currentStepIndex === steps.length - 1) { // Completion step (Last Page)
+                mainButtonsContainer.style.display = 'none'; 
+            } else { // Intermediate steps (Pages 2, 3, 4, 5)
+                prevButton.style.display = 'inline-block';
+                nextButton.style.display = 'inline-block';
+                mainButtonsContainer.style.display = 'block'; 
+            }
+        }
+
+        // --- Event Listeners to navigate between pages ---
+
+        startButton.addEventListener('click', () => {
+            currentStepIndex = 1; // Go from Welcome (0) to Step 1 (1)
+            updateDisplay();
+        });
+
+        nextButton.addEventListener('click', () => {
+            if (currentStepIndex < steps.length - 1) {
+                currentStepIndex++;
+                updateDisplay();
+            }
+        });
+
+        prevButton.addEventListener('click', () => {
+            if (currentStepIndex > 0) {
+                currentStepIndex--;
+                updateDisplay();
+            }
+        });
+
+        restartButton.addEventListener('click', () => {
+            currentStepIndex = 0; // Go back to the Welcome step (Page 1)
+            updateDisplay();
+        });
+
+        // Initial setup to show the Welcome Step (Page 1)
+        updateDisplay();
+    </script>
+</body>
+</html>

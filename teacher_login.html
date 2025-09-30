@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Teacher/Admin Login - DA-SCHOOLS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Tailwind config for consistent styling
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#3498db', /* A professional blue */
+                        'secondary': '#2ecc71', /* A clean green for highlights */
+                        'background': '#ecf0f1', /* Light background */
+                        'card': '#ffffff', /* White cards */
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom styles for a more formal login */
+        .error-message {
+            color: #e74c3c;
+            font-weight: bold;
+            text-align: center;
+            margin-top: -10px;
+        }
+    </style>
+</head>
+<body class="bg-background min-h-screen flex items-center justify-center">
+
+    <div class="w-full max-w-md p-8 m-4 bg-card rounded-xl shadow-2xl border-t-4 border-primary">
+        <h2 class="text-3xl font-extrabold text-primary text-center mb-6">
+            Teacher / Admin Login 
+        </h2>
+
+        <form id="teacherLoginForm" class="space-y-6">
+            <div>
+                <label for="teacherId" class="block text-sm font-medium text-gray-700">Teacher ID</label>
+                <input type="text" id="teacherId" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary transition duration-150 ease-in-out" placeholder="e.g., T9876">
+            </div>
+
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                <input type="password" id="password" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary transition duration-150 ease-in-out" placeholder="••••••••">
+            </div>
+
+            <div id="errorMessage" class="error-message hidden">
+                Login failed. Please check your ID and Password.
+            </div>
+
+            <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-md text-lg font-bold text-white bg-primary hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition duration-150 ease-in-out">
+                Log In
+            </button>
+        </form>
+    </div>
+
+    <script>
+        const BACKEND_URL = 'http://localhost:3000'; // Targeting your local Node.js server
+
+        document.getElementById('teacherLoginForm').addEventListener('submit', async function(e) {
+            e.preventDefault(); // Prevent default form submission
+            
+            const teacherId = document.getElementById('teacherId').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.classList.add('hidden'); // Clear previous errors
+
+            try {
+                // POST request to the local backend's teacher login route
+                const response = await fetch(`${BACKEND_URL}/api/auth/teacher-login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ teacherId, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Successful Login: Store the token for future requests
+                    localStorage.setItem('teacherAuthToken', data.token); 
+                    
+                    // Redirect to the teacher dashboard page
+                    window.location.href = 'Teacher Dashboard.html'; 
+                } else {
+                    // Failed Login
+                    errorMessage.textContent = data.message || 'Login failed. Invalid ID or Password.';
+                    errorMessage.classList.remove('hidden');
+                }
+
+            } catch (error) {
+                console.error('Teacher Login error:', error);
+                errorMessage.textContent = 'Network error: Is the backend running on port 3000?';
+                errorMessage.classList.remove('hidden');
+            }
+        });
+
+        // Redirect logged-in teachers away from the login page
+        if (localStorage.getItem('teacherAuthToken')) {
+            window.location.href = 'Teacher Dashboard.html';
+        }
+    </script>
+</body>
+</html>

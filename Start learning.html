@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disaster Awareness Game! ✨</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* General & Jolly Styles */
+        body {
+            font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-image: linear-gradient(135deg, #f3e5f5 0%, #d1c4e9 100%);
+            color: #4a4a4a;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            position: relative;
+        }
+
+        h1 {
+            color: #7b1fa2;
+            font-size: 3em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        /* Main Module List Styles */
+        #main-page {
+            display: block;
+        }
+
+        #reset-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #reset-btn:hover {
+            background-color: #d32f2f;
+            transform: scale(1.05);
+        }
+
+        .module-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .module-item {
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s ease-in-out;
+            border: 2px solid #e0e0e0;
+        }
+
+        .module-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .module-item h2 {
+            margin: 0;
+            font-size: 1.8em;
+            color: #6a1b9a;
+        }
+
+        .module-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .start-btn {
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        .start-btn:hover {
+            background-color: #fb8c00;
+            transform: scale(1.05);
+        }
+
+        .completed-btn {
+            background-color: #4caf50;
+            color: white;
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+
+        .checkbox-container {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #9c27b0;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f3e5f5;
+        }
+
+        .completed-checkmark {
+            color: #4caf50;
+            font-size: 1.2em;
+        }
+
+        /* Quiz Page Styles */
+        .quiz-page {
+            display: none;
+            text-align: left;
+        }
+
+        .quiz-page h2 {
+            color: #7b1fa2;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .score-display {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #e67e22;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Centering the video */
+        .video-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .video-container iframe {
+            max-width: 100%;
+        }
+
+        .question-box {
+            background-color: #fce4ec;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .question-text {
+            font-size: 1.3em;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .option-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: #e1bee7;
+            border: 2px solid #ce93d8;
+            border-radius: 10px;
+            text-align: left;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        .option-btn:hover {
+            background-color: #d1c4e9;
+        }
+
+        .option-btn.correct {
+            background-color: #a5d6a7;
+            border-color: #4caf50;
+        }
+
+        .option-btn.incorrect {
+            background-color: #ef9a9a;
+            border-color: #f44336;
+        }
+
+        #quiz-result {
+            display: none;
+            text-align: center;
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-top: 30px;
+            color: #7b1fa2;
+        }
+
+        .return-btn {
+            background-color: #ff5722;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        .return-btn:hover {
+            background-color: #f4511e;
+            transform: scale(1.05);
+        }
+
+        .next-btn {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s, transform 0.1s;
+            display: none; /* Initially hidden */
+        }
+
+        .next-btn:hover {
+            background-color: #388e3c;
+            transform: scale(1.05);
+        }
+
+        .finish-quiz-btn {
+            background-color: #6a1b9a;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        .finish-quiz-btn:hover {
+            background-color: #4a148c;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Disaster Hero Training! ✨</h1>
+
+        <div id="main-page">
+            <button id="reset-btn">Reset Progress</button>
+            <ul class="module-list">
+                <li class="module-item">
+                    <h2>Earthquake Awareness</h2>
+                    <div class="module-status">
+                        <div class="checkbox-container" id="earthquake-checkbox"></div>
+                        <button class="start-btn" data-module="earthquake">Start!</button>
+                    </div>
+                </li>
+                <li class="module-item">
+                    <h2>Fire Response</h2>
+                    <div class="module-status">
+                        <div class="checkbox-container" id="fire-checkbox"></div>
+                        <button class="start-btn" data-module="fire">Start!</button>
+                    </div>
+                </li>
+                <li class="module-item">
+                    <h2>Flood Awareness</h2>
+                    <div class="module-status">
+                        <div class="checkbox-container" id="flood-checkbox"></div>
+                        <button class="start-btn" data-module="flood">Start!</button>
+                    </div>
+                </li>
+                <li class="module-item">
+                    <h2>First Aid Basics</h2>
+                    <div class="module-status">
+                        <div class="checkbox-container" id="first-aid-checkbox"></div>
+                        <button class="start-btn" data-module="first-aid">Start!</button>
+                    </div>
+                </li>
+                <li class="module-item">
+                    <h2>CPR</h2>
+                    <div class="module-status">
+                        <div class="checkbox-container" id="cpr-checkbox"></div>
+                        <button class="start-btn" data-module="cpr">Start!</button>
+                    </div>
+                </li>
+                <li class="module-item">
+                    <h2>Helping Others</h2>
+                    <div class="module-status">
+                        <div class="checkbox-container" id="helping-others-checkbox"></div>
+                        <button class="start-btn" data-module="helping-others">Start!</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div id="earthquake-quiz" class="quiz-page">
+            <h2>Earthquake Awareness Quiz 🌍</h2>
+            <div id="earthquake-video" class="video-container">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/193PoeTUIvo" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div id="earthquake-questions" class="questions-container"></div>
+            <p class="score-display">Your Score: <span id="earthquake-score">0</span></p>
+            <div id="quiz-result"></div>
+            <button id="earthquake-next-btn" class="next-btn">Next</button>
+            <button class="return-btn" data-module="earthquake">Back to Modules</button>
+        </div>
+
+        <div id="fire-quiz" class="quiz-page">
+            <h2>Fire Response Quiz 🔥</h2>
+            <div id="fire-video" class="video-container">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/AWHGdWOI4kw" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div id="fire-questions" class="questions-container"></div>
+            <p class="score-display">Your Score: <span id="fire-score">0</span></p>
+            <div id="quiz-result"></div>
+            <button id="fire-next-btn" class="next-btn">Next</button>
+            <button class="return-btn" data-module="fire">Back to Modules</button>
+        </div>
+
+        <div id="flood-quiz" class="quiz-page">
+            <h2>Flood Awareness Quiz 🌊</h2>
+            <div id="flood-video" class="video-container">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/W4Zq0gSe9bk" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div id="flood-questions" class="questions-container"></div>
+            <p class="score-display">Your Score: <span id="flood-score">0</span></p>
+            <div id="quiz-result"></div>
+            <button id="flood-next-btn" class="next-btn">Next</button>
+            <button class="return-btn" data-module="flood">Back to Modules</button>
+        </div>
+
+        <div id="first-aid-quiz" class="quiz-page">
+            <h2>First Aid Basics Quiz 🩹</h2>
+            <div id="first-aid-video" class="video-container">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/vDYaYoyFkqU" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div id="first-aid-questions" class="questions-container"></div>
+            <p class="score-display">Your Score: <span id="first-aid-score">0</span></p>
+            <div id="quiz-result"></div>
+            <button id="first-aid-next-btn" class="next-btn">Next</button>
+            <button class="return-btn" data-module="first-aid">Back to Modules</button>
+        </div>
+
+        <div id="cpr-quiz" class="quiz-page">
+            <h2>CPR Quiz ❤️‍🩹</h2>
+            <div id="cpr-video" class="video-container">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/juqvaX-MCQ8" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div id="cpr-questions" class="questions-container"></div>
+            <p class="score-display">Your Score: <span id="cpr-score">0</span></p>
+            <div id="quiz-result"></div>
+            <button id="cpr-next-btn" class="next-btn">Next</button>
+            <button class="return-btn" data-module="cpr">Back to Modules</button>
+        </div>
+
+        <div id="helping-others-quiz" class="quiz-page">
+            <h2>Helping Others Quiz 🫂</h2>
+            <div id="helping-others-video" class="video-container">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/S1Yf5sQoq-Y" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div id="helping-others-questions" class="questions-container"></div>
+            <p class="score-display">Your Score: <span id="helping-others-score">0</span></p>
+            <div id="quiz-result"></div>
+            <button id="helping-others-next-btn" class="next-btn">Next</button>
+            <button class="return-btn" data-module="helping-others">Back to Modules</button>
+        </div>
+    </div>
+
+    <script>
+        
+        // Store quiz questions in a JavaScript object (now with only 3 questions each)
+        const quizData = {
+            earthquake: [
+                {
+                    question: "In seismic safety, what does the 'Drop, Cover, and Hold On' drill primarily protect you from during an earthquake?",
+                    options: ["Structural collapse of the building.", "The ground cracking open beneath you.", "Falling non-structural objects and debris."],
+                    answer: "Falling non-structural objects and debris."
+                },
+                {
+                    question: "If you are driving when an earthquake begins, what is the safest immediate action?",
+                    options: ["Drive to the nearest underpass for cover.", "Stop in a clear area, set the parking brake, and wait inside.", "Speed up to get out of the shaking zone quickly."],
+                    answer: "Stop in a clear area, set the parking brake, and wait inside."
+                },
+                {
+                    question: "Post-earthquake, why is it critical to avoid using matches or lighters?",
+                    options: ["They might start a secondary fire.", "They can interfere with emergency radio signals.", "They could ignite gas leaking from damaged lines."],
+                    answer: "They could ignite gas leaking from damaged lines."
+                },
+            ],
+            fire: [
+                {
+                    question: "In the event of a fire, after activating the alarm, what should be your main priority?",
+                    options: ["Retrieving valuable personal items.", "Notifying everyone to evacuate immediately.", "Trying to contain the fire with an extinguisher."],
+                    answer: "Notifying everyone to evacuate immediately."
+                },
+                {
+                    question: "When navigating through a smoke-filled room, why should you crawl low to the floor?",
+                    options: ["To avoid inhaling toxic smoke, as it rises.", "To stay below the heat, which is always concentrated at the ceiling.", "To feel your way along the wall for an exit."],
+                    answer: "To avoid inhaling toxic smoke, as it rises."
+                },
+                {
+                    question: "The acronym P.A.S.S. for using a fire extinguisher stands for:",
+                    options: ["Pull, Aim, Squeeze, Sweep", "Prioritize, Alarm, Stand, Spray", "Prepare, Activate, Shut off, Secure"],
+                    answer: "Pull, Aim, Squeeze, Sweep"
+                },
+            ],
+            flood: [
+                {
+                    question: "The saying 'Turn around, don't drown' highlights the danger of what depth of moving water for a vehicle?",
+                    options: ["6 inches", "1 foot", "3 feet"],
+                    answer: "1 foot"
+                },
+                {
+                    question: "If advised to evacuate due to a flood warning, where should you go?",
+                    options: ["To a higher floor of your home.", "To the closest official emergency shelter or higher ground.", "To the basement for sturdy protection."],
+                    answer: "To the closest official emergency shelter or higher ground."
+                },
+                {
+                    question: "What is the greatest hidden danger associated with walking through floodwaters?",
+                    options: ["Exposure to waterborne pathogens.", "The current sweeping you off your feet.", "The potential for hidden debris or energized power lines."],
+                    answer: "The potential for hidden debris or energized power lines."
+                },
+            ],
+            'first-aid': [
+                {
+                    question: "For a minor burn, what is the best initial first aid treatment?",
+                    options: ["Apply butter or oil to the area.", "Immediately run the burn under cool or lukewarm water.", "Cover it tightly with a dry bandage."],
+                    answer: "Immediately run the burn under cool or lukewarm water."
+                },
+                {
+                    question: "If an adult is choking and conscious, what is the recommended first-aid procedure?",
+                    options: ["Encourage them to cough forcefully and call 911.", "Apply chest compressions immediately.", "Administer five back blows followed by five abdominal thrusts (Heimlich maneuver)."],
+                    answer: "Administer five back blows followed by five abdominal thrusts (Heimlich maneuver)."
+                },
+                {
+                    question: "The primary purpose of a 'Good Samaritan' law is to:",
+                    options: ["Ensure proper compensation for first aid volunteers.", "Require all citizens to carry a basic first aid kit.", "Protect people who give reasonable assistance to others who are injured, ill, or in peril."],
+                    answer: "Protect people who give reasonable assistance to others who are injured, ill, or in peril."
+                },
+            ],
+            cpr: [
+                {
+                    question: "For an adult, what is the correct depth for chest compressions during CPR?",
+                    options: ["At least 1 inch (2.5 cm).", "At least 2 inches (5 cm).", "No more than 1.5 inches (3.8 cm)."],
+                    answer: "At least 2 inches (5 cm)."
+                },
+                {
+                    question: "In hands-only CPR for an adult, what is the correct ratio of compressions to breaths?",
+                    options: ["30 compressions to 2 breaths.", "15 compressions to 2 breaths.", "There are no rescue breaths in hands-only CPR."],
+                    answer: "There are no rescue breaths in hands-only CPR."
+                },
+                {
+                    question: "When performing CPR, what rate should compressions be delivered?",
+                    options: ["Slower than 80 beats per minute.", "Between 100 to 120 beats per minute.", "Faster than 130 beats per minute."],
+                    answer: "Between 100 to 120 beats per minute."
+                },
+            ],
+            'helping-others': [
+                {
+                    question: "After a major regional disaster, the most valuable immediate aid you can offer, if you are not a trained professional, is often:",
+                    options: ["Donating clothing and household items.", "Providing emotional support and checking on vulnerable neighbors.", "Spontaneously driving into the disaster zone with supplies."],
+                    answer: "Providing emotional support and checking on vulnerable neighbors."
+                },
+                {
+                    question: "Why should cash donations be preferred over material goods after a widespread disaster?",
+                    options: ["Cash is easier to manage and allows relief organizations to buy exactly what is needed locally.", "Material goods are always destroyed in transit.", "The government gives tax breaks for cash but not goods."],
+                    answer: "Cash is easier to manage and allows relief organizations to buy exactly what is needed locally."
+                },
+                {
+                    question: "Before volunteering to help with clean-up in a disaster area, what is the most responsible action to take?",
+                    options: ["Show up unannounced and offer your services.", "Ensure you have the proper safety gear and have communicated with an organized relief group.", "Start clearing debris from the nearest damaged property."],
+                    answer: "Ensure you have the proper safety gear and have communicated with an organized relief group."
+                },
+            ]
+        };
+
+        // State to track completed modules and points
+        let completedModules = JSON.parse(localStorage.getItem('completedModules')) || {};
+        let currentModule = '';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateMainPage();
+
+            document.querySelectorAll('.start-btn').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    currentModule = event.target.dataset.module;
+                    showQuizPage(currentModule);
+                });
+            });
+
+            document.querySelectorAll('.return-btn').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const moduleName = event.target.dataset.module;
+                    returnToMainPage(moduleName);
+                });
+            });
+
+            document.getElementById('reset-btn').addEventListener('click', () => {
+                localStorage.removeItem('completedModules');
+                completedModules = {};
+                updateMainPage();
+                alert('Game progress has been reset!');
+            });
+        });
+
+        function updateMainPage() {
+            document.querySelectorAll('.module-item').forEach(item => {
+                const moduleName = item.querySelector('.start-btn').dataset.module;
+                const checkbox = document.getElementById(moduleName + '-checkbox');
+                const startBtn = item.querySelector('.start-btn');
+
+                if (completedModules[moduleName]) {
+                    checkbox.innerHTML = '<i class="fas fa-check-circle completed-checkmark"></i>';
+                    startBtn.textContent = 'Completed!';
+                    startBtn.classList.add('completed-btn');
+                    startBtn.disabled = true;
+                } else {
+                    checkbox.innerHTML = '';
+                    startBtn.textContent = 'Start!';
+                    startBtn.classList.remove('completed-btn');
+                    startBtn.disabled = false;
+                }
+            });
+        }
+
+        function showQuizPage(moduleName) {
+            document.getElementById('main-page').style.display = 'none';
+            const quizPage = document.getElementById(moduleName + '-quiz');
+            quizPage.style.display = 'block';
+
+            startQuiz(moduleName);
+        }
+
+        function returnToMainPage(moduleName) {
+            document.getElementById(moduleName + '-quiz').style.display = 'none';
+            document.getElementById('main-page').style.display = 'block';
+            updateMainPage();
+        }
+
+        function startQuiz(moduleName) {
+            let currentQuestionIndex = 0;
+            let score = 0;
+            const questionsContainer = document.getElementById(moduleName + '-questions');
+            const scoreDisplay = document.getElementById(moduleName + '-score');
+            const quizResult = document.getElementById('quiz-result');
+            const nextBtn = document.getElementById(moduleName + '-next-btn');
+            const questions = quizData[moduleName];
+
+            // Reset button styles for a fresh quiz start
+            nextBtn.classList.remove('finish-quiz-btn');
+            nextBtn.textContent = 'Next';
+            nextBtn.style.display = 'none';
+            scoreDisplay.textContent = 0; // Reset score display for the new quiz
+
+            function showQuestion() {
+                if (currentQuestionIndex < questions.length) {
+                    nextBtn.style.display = 'none'; // Hide next button for the new question
+                    quizResult.style.display = 'none'; // Hide result message
+
+                    const question = questions[currentQuestionIndex];
+                    questionsContainer.innerHTML = `
+                        <div class="question-box">
+                            <p class="question-text">Question ${currentQuestionIndex + 1} of ${questions.length}: ${question.question}</p>
+                            ${question.options.map(option => `
+                                <button class="option-btn" data-answer="${option}">${option}</button>
+                            `).join('')}
+                        </div>
+                    `;
+
+                    questionsContainer.querySelectorAll('.option-btn').forEach(button => {
+                        button.addEventListener('click', handleAnswer);
+                    });
+                } else {
+                    endQuiz();
+                }
+            }
+
+            function handleAnswer(event) {
+                // Prevent multiple clicks on buttons
+                const allButtons = questionsContainer.querySelectorAll('.option-btn');
+                allButtons.forEach(btn => btn.disabled = true);
+
+                const selectedOption = event.target.dataset.answer;
+                const correctAnswer = questions[currentQuestionIndex].answer;
+
+                if (selectedOption === correctAnswer) {
+                    score += 10;
+                    event.target.classList.add('correct');
+                    quizResult.textContent = '🎉 Correct! You earned 10 points! 🎉';
+                } else {
+                    event.target.classList.add('incorrect');
+                    allButtons.forEach(btn => {
+                        if (btn.dataset.answer === correctAnswer) {
+                            btn.classList.add('correct');
+                        }
+                    });
+                    quizResult.textContent = '😔 Oh no, that\'s not it. The correct answer is highlighted.';
+                }
+
+                scoreDisplay.textContent = score;
+                quizResult.style.display = 'block';
+
+                if (currentQuestionIndex < questions.length - 1) {
+                    nextBtn.style.display = 'inline-block';
+                    nextBtn.textContent = 'Next';
+                    nextBtn.classList.remove('finish-quiz-btn');
+                    nextBtn.classList.add('next-btn');
+                } else {
+                    // Last question answered
+                    nextBtn.textContent = 'Finish Quiz!';
+                    nextBtn.style.display = 'inline-block';
+                    nextBtn.classList.add('finish-quiz-btn');
+                    nextBtn.classList.remove('next-btn');
+                    nextBtn.removeEventListener('click', nextQuestionHandler); // Remove generic next
+                    nextBtn.addEventListener('click', endQuizHandler); // Add finish handler
+                }
+            }
+
+            function nextQuestionHandler() {
+                currentQuestionIndex++;
+                showQuestion();
+                // Re-attach the nextQuestionHandler in case it was replaced by endQuizHandler
+                nextBtn.removeEventListener('click', endQuizHandler);
+                nextBtn.addEventListener('click', nextQuestionHandler);
+            }
+
+            function endQuizHandler() {
+                endQuiz();
+            }
+            
+            // Initial event listener for the next button
+            nextBtn.removeEventListener('click', nextQuestionHandler); // Ensure only one listener
+            nextBtn.removeEventListener('click', endQuizHandler);
+            nextBtn.addEventListener('click', nextQuestionHandler);
+
+
+            function endQuiz() {
+                questionsContainer.innerHTML = '';
+                nextBtn.style.display = 'none'; // Hide the finish button after it's clicked
+
+                let finalMessage = '';
+                const maxScore = questions.length * 10;
+                if (score === maxScore) {
+                    finalMessage = `🚀 You're a true Disaster Hero! You got a perfect score of ${score} out of ${maxScore}! 🚀`;
+                    completedModules[moduleName] = true;
+                    localStorage.setItem('completedModules', JSON.stringify(completedModules));
+                } else {
+                    finalMessage = `Great effort! You scored ${score} out of ${maxScore}. Keep learning and try again!`;
+                }
+
+                quizResult.textContent = finalMessage;
+                quizResult.style.display = 'block';
+                
+                // Clear the temporary listeners
+                nextBtn.removeEventListener('click', nextQuestionHandler);
+                nextBtn.removeEventListener('click', endQuizHandler);
+
+            }
+
+            showQuestion();
+        }
+    </script>
+</body>
+</html>

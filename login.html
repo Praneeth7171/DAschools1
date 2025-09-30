@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Login - DA-SCHOOLS</title>
+    <link href="style.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Use the same Tailwind config for consistency
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#e74c3c', /* A clear, strong red */
+                        'secondary': '#f39c12', /* A bright orange for highlights */
+                        'background': '#f4f7f9', /* Light gray background */
+                        'card': '#ffffff', /* White cards */
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Add a style for the error message */
+        .error-message {
+            color: #e74c3c;
+            font-weight: bold;
+            text-align: center;
+            margin-top: -10px;
+        }
+    </style>
+</head>
+<body class="bg-background min-h-screen flex items-center justify-center">
+
+    <div class="w-full max-w-md p-8 m-4 bg-card rounded-xl shadow-2xl border-t-4 border-secondary">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-extrabold text-gray-800">Student Login</h1>
+            <p class="text-gray-500 mt-2">Access your personalized disaster drills and profile.</p>
+        </div>
+
+        <form id="loginForm" class="space-y-6">
+            
+            <div>
+                <label for="studentId" class="block text-sm font-medium text-gray-700 mb-1">Student ID / Roll Number</label>
+                <input type="text" id="studentId" name="studentId" required 
+                       class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary"
+                       placeholder="Use 'S12345'" value="S12345" />
+            </div>
+
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                <input type="password" id="password" name="password" required 
+                       class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary"
+                       placeholder="Use 'password'" value="password" />
+            </div>
+
+            <p id="errorMessage" class="error-message hidden">Invalid Student ID or Password.</p>
+
+            <button type="submit" 
+                    class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-secondary hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary transition duration-300">
+                Sign In
+            </button>
+            
+        </form>
+        
+        <div class="mt-6 text-center text-sm">
+            <a href="forgot_password.html" class="font-medium text-primary hover:text-red-700">
+                Forgot Password?
+            </a>
+            <span class="text-gray-400 mx-2">|</span>
+            <a href="register.html" class="font-medium text-primary hover:text-red-700">
+                New Student? Register
+            </a>
+        </div>
+        
+        <p class="text-center text-xs text-gray-500 mt-4">
+            *This is a **SIMULATED** login. Use **S12345** / **password** to proceed.
+        </p>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent default form submission
+            
+            const studentId = document.getElementById('studentId').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const errorMessage = document.getElementById('errorMessage');
+
+            // --- SIMULATED LOGIN CREDENTIALS ---
+            const VALID_ID = 'S12345';
+            const VALID_PASSWORD = 'password';
+
+            if (studentId === VALID_ID && password === VALID_PASSWORD) {
+                // Successful Login: Set a flag and a name in localStorage
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('loggedInUser', 'Student ' + studentId);
+                
+                // Redirect to the learning page
+                window.location.href = 'Start learning.html'; 
+            } else {
+                // Failed Login: Show error message
+                errorMessage.classList.remove('hidden');
+                setTimeout(() => {
+                    errorMessage.classList.add('hidden'); // Hide after 3 seconds
+                }, 3000);
+            }
+        });
+
+        // Redirect logged-in users away from the login page
+        if (localStorage.getItem('isLoggedIn') === 'true') {
+            window.location.href = 'Start learning.html';
+        }
+    </script>
+</body>
+</html>

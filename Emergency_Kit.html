@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Emergency Kit Checklist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #e74c3c; /* Emergency Red */
+            --secondary-color: #2ecc71; /* Success Green */
+            --background-color: #f4f7f9;
+            --card-color: #ffffff;
+            --text-color: #34495e;
+            --border-color: #bdc3c7;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        #checklist-container {
+            width: 100%;
+            max-width: 1000px;
+            padding: 30px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 5px solid var(--primary-color);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.5em;
+            margin-bottom: 5px;
+        }
+        
+        .progress-bar-container {
+            width: 80%;
+            height: 10px;
+            background-color: #ddd;
+            border-radius: 5px;
+            margin: 15px auto 0;
+            overflow: hidden;
+        }
+
+        #progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: var(--secondary-color);
+            transition: width 0.5s ease;
+        }
+
+        #progress-text {
+            font-weight: bold;
+            margin-top: 10px;
+            color: var(--secondary-color);
+        }
+
+        /* === Grid Layout for Categories === */
+        #categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .category-card {
+            background-color: var(--card-color);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .category-title {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* === Checklist Item Styling (The Interactive Part) === */
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: background-color 0.15s;
+            user-select: none;
+        }
+
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+
+        .checklist-item:hover {
+            background-color: #f8f8f8;
+        }
+
+        .item-text {
+            flex-grow: 1;
+            margin-left: 10px;
+            transition: color 0.3s;
+        }
+
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary-color);
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s, border-color 0.3s;
+            font-weight: bold;
+            color: transparent;
+        }
+
+        /* === Checked State Styles === */
+        .checked {
+            background-color: var(--secondary-color);
+        }
+        
+        .checked .checkbox {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .checked .item-text {
+            text-decoration: line-through;
+            color: #a0a0a0;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="checklist-container">
+        <header>
+            <h1>Emergency Kit Checklist</h1>
+            <p>Essential supplies for 72 hours of self-sufficiency during any disaster.</p>
+            <div class="progress-bar-container">
+                <div id="progress-bar"></div>
+            </div>
+            <div id="progress-text">0% Complete (0/0 Items)</div>
+        </header>
+
+        <div id="categories-grid">
+            
+            <div class="category-card">
+                <div class="category-title">💧 Food & Water (3 Days Supply)</div>
+                <div class="checklist-item" data-id="water-1">
+                    <div class="checkbox">✔</div>
+                    <span class="item-text">1 Gallon of Water per person, per day (Total 3+ gal)</span>
+                </div>
+                <div class="checklist-item" data-id="food-1">
+                    <div class="checkbox">✔</div>
+                    <span class="item-text">Non-perishable food (Canned goods, protein bars)</span>
+                </div>
+                <div class="checklist-item" data-id="food-2">
+                    <div class="checkbox">✔</div>
+                    <span class="item-text">Manual can opener</span>
+                </div>
+                <div class="checklist-item" data-id="food-3">
+                    <div class="checkbox">✔</div>
+                    <span class="item-text">Pet food (if applicable)</span>
+                </div>
+            </div>
+
+            <div class="category-card">
+                <div class="category-title">📻 Safety & Communication</div>
+                <div class="checklist-item" data-id="comm-1">
+                    <div class="checkbox">✔</div>
+                    <span class="item-text">Battery-powered or hand-crank radio (NOAA weather radio)</span>
+                </div>
+                <div class="checklist-item" data-id="comm-2">
+                    <div class="checkbox">✔</div>
+                    <span class="item-text">Flashlight and extra batteries</span>
+                </div>
+                <div class="checklist-item" data-id="comm-3">
+                    <div class="checkbox">✔</div>
+                    <span class="item-text">Whistle (to signal for help)</span>
+                </div>
+                <div class="checklist-item" data-id="comm-4">
+                    <div class="checkbox">✔</div>
+                    <span class="item-text">Local maps (in case GPS/power is down)</span>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-title">🩹 Medical & Hygiene</div>
+                <div class="checklist-item" data-id="med-1">
+                    <div class="checkbox">✔</div>
+                    <span class="item-text">First Aid Kit (Bandages, antiseptic wipes, gauze)</span>
+                </div>
+                <div class="checklist-item" data-id="med-2">
+                    <div class="checkbox">✔</div>
+                    <span class="item-text">Prescription medications (7-day supply)</span>
+                </div>
+                <div class="checklist-item" data-id="med-3">
+                    <div class="checkbox">✔</div>
+                    <span class="item-text">Personal hygiene items (soap, toothbrush, menstrual supplies)</span>
+                </div>
+                <div class="checklist-item" data-id="med-4">
+                    <div class="checkbox">✔</div>
+                    <span class="item-text">Dust mask or cotton cloth (to filter air)</span>
+                </div>
+            </div>
+
+            <div class="category-card">
+                <div class="category-title">🛠️ Tools & Shelter</div>
+                <div class="checklist-item" data-id="tool-1">
+                    <div class="checkbox">✔</div>
+                    <span class="item-text">Wrench or pliers (to turn off utilities)</span>
+                </div>
+                <div class="checklist-item" data-id="tool-2">
+                    <div class="checkbox">✔</div>
+                    <span class="item-text">Duct tape</span>
+                </div>
+                <div class="checklist-item" data-id="tool-3">
+                    <div class="checkbox">✔</div>
+                    <span class="item-text">Blankets or sleeping bags</span>
+                </div>
+                <div class="checklist-item" data-id="tool-4">
+                    <div class="checkbox">✔</div>
+                    <span class="item-text">Plastic sheeting and garbage bags</span>
+                </div>
+            </div>
+
+            <div class="category-card">
+                <div class="category-title">💳 Documents & Money</div>
+                <div class="checklist-item" data-id="doc-1">
+                    <div class="checkbox">✔</div>
+                    <span class="item-text">Copies of essential documents (ID, insurance, bank records)</span>
+                </div>
+                <div class="checklist-item" data-id="doc-2">
+                    <div class="checkbox">✔</div>
+                    <span class="item-text">Cash (ATMs may not work)</span>
+                </div>
+                <div class="checklist-item" data-id="doc-3">
+                    <div class="checkbox">✔</div>
+                    <span class="item-text">List of emergency contacts and physicians</span>
+                </div>
+                <div class="checklist-item" data-id="doc-4">
+                    <div class="checkbox">✔</div>
+                    <span class="item-text">Chargers and a portable power bank for phones</span>
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+
+    <script>
+        const STORAGE_KEY = 'emergencyKitStatus';
+        const allItems = document.querySelectorAll('.checklist-item');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        
+        let checkedItems = {};
+
+        // --- Core Function: Update Progress ---
+        function updateProgress() {
+            const totalItems = allItems.length;
+            const collectedItems = document.querySelectorAll('.checklist-item.checked').length;
+            const percent = (collectedItems / totalItems) * 100;
+
+            progressBar.style.width = `${percent}%`;
+            progressText.textContent = `${Math.round(percent)}% Complete (${collectedItems}/${totalItems} Items)`;
+
+            if (percent === 100) {
+                 progressText.style.color = 'var(--secondary-color)';
+            } else if (percent > 0) {
+                 progressText.style.color = '#3498db'; /* Blue when partially done */
+            } else {
+                 progressText.style.color = 'var(--primary-color)';
+            }
+        }
+
+        // --- Core Function: Toggle Item ---
+        function toggleItem(event) {
+            const item = event.currentTarget;
+            const itemId = item.getAttribute('data-id');
+            
+            // Toggle the 'checked' class
+            const isChecked = item.classList.toggle('checked');
+
+            // Update the global state
+            checkedItems[itemId] = isChecked;
+
+            // Save the new state and update the UI
+            saveState();
+            updateProgress();
+        }
+
+        // --- Local Storage Management ---
+        function saveState() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(checkedItems));
+        }
+
+        function loadState() {
+            const savedState = localStorage.getItem(STORAGE_KEY);
+            if (savedState) {
+                checkedItems = JSON.parse(savedState);
+                
+                // Apply the saved state to the DOM
+                allItems.forEach(item => {
+                    const itemId = item.getAttribute('data-id');
+                    if (checkedItems[itemId]) {
+                        item.classList.add('checked');
+                    } else {
+                        item.classList.remove('checked');
+                    }
+                });
+            }
+            updateProgress(); // Initialize the progress bar on load
+        }
+
+
+        // --- Initialization ---
+        window.onload = () => {
+            // Attach the click event to all checklist items
+            allItems.forEach(item => {
+                item.addEventListener('click', toggleItem);
+            });
+
+            loadState();
+        };
+    </script>
+</body>
+</html>

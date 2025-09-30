@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Women's Safety & Empowerment | DA-SCHOOLS</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Reusing the color configuration from your main site
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'danger': '#e74c3c', // Red
+                        'secondary': '#f39c12', // Yellow/Orange
+                        'background': '#f4f7f9', // Light Gray
+                        'card': '#ffffff',
+                        'dark-text': '#2c3e50', // Dark Blue
+                        'safety-pink': '#e91e63', // New distinct color for this page's theme
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom border radius for a smoother look */
+        .card-rounded {
+            border-radius: 1rem; /* 16px */
+        }
+        /* Gradient for the main hero section */
+        .hero-gradient {
+            background: linear-gradient(135deg, #e91e63, #ff4081);
+        }
+    </style>
+</head>
+<body class="bg-background min-h-screen font-sans text-dark-text"> 
+
+    <header class="fixed top-0 left-0 w-full z-30 p-4 lg:p-6 backdrop-blur-sm bg-dark-text shadow-xl">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-extrabold text-secondary transition duration-300">
+                DA-SCHOOLS
+            </a>
+            <h1 class="text-xl font-bold text-white uppercase tracking-wider">Safety & Empowerment</h1>
+        </div>
+    </header>
+
+    <section class="hero-gradient pt-28 pb-16 text-white card-rounded shadow-2xl">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-lg font-semibold mb-2">Building Confidence, Ensuring Security</p>
+            <h2 class="text-5xl lg:text-6xl font-extrabold mb-4">
+                Be Safe. Be Strong. Be Heard.
+            </h2>
+            <p class="text-xl max-w-3xl mx-auto opacity-90">
+                Immediate access to helplines and proactive safety drills for every scenario.
+            </p>
+        </div>
+    </section>
+
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-extrabold mb-3 text-safety-pink">
+                    🚨 Immediate SOS Helplines 🚨
+                </h2>
+                <p class="text-lg text-gray-700 max-w-3xl mx-auto">
+                    These are critical national helplines in India. Tap to call instantly in an emergency.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                
+                <a href="tel:112" class="group block h-full">
+                    <div class="p-6 bg-card card-rounded shadow-xl border-t-8 border-danger hover:shadow-2xl transition duration-300 transform hover:scale-[1.03] text-center h-full flex flex-col justify-between">
+                        <div>
+                            <span class="text-5xl mb-3 block">📞</span>
+                            <h3 class="font-bold text-xl text-dark-text mb-2">All-in-One Emergency</h3>
+                            <p class="text-sm text-gray-500 mb-4">Police, Fire, and Medical Assistance.</p>
+                        </div>
+                        <div class="px-3 py-1 bg-danger text-white font-extrabold text-2xl rounded-full transition duration-300 inline-block w-full">
+                            112
+                        </div>
+                    </div>
+                </a>
+
+                <a href="tel:1091" class="group block h-full">
+                    <div class="p-6 bg-card card-rounded shadow-xl border-t-8 border-safety-pink hover:shadow-2xl transition duration-300 transform hover:scale-[1.03] text-center h-full flex flex-col justify-between">
+                        <div>
+                            <span class="text-5xl mb-3 block">👩‍⚖️</span>
+                            <h3 class="font-bold text-xl text-dark-text mb-2">Women's Police Line</h3>
+                            <p class="text-sm text-gray-500 mb-4">Dedicated support for women in distress.</p>
+                        </div>
+                        <div class="px-3 py-1 bg-safety-pink text-white font-extrabold text-2xl rounded-full transition duration-300 inline-block w-full">
+                            1091
+                        </div>
+                    </div>
+                </a>
+
+                <a href="tel:1098" class="group block h-full">
+                    <div class="p-6 bg-card card-rounded shadow-xl border-t-8 border-secondary hover:shadow-2xl transition duration-300 transform hover:scale-[1.03] text-center h-full flex flex-col justify-between">
+                        <div>
+                            <span class="text-5xl mb-3 block">👧</span>
+                            <h3 class="font-bold text-xl text-dark-text mb-2">Child Protection</h3>
+                            <p class="text-sm text-gray-500 mb-4">Help for children facing any kind of threat or emergency.</p>
+                        </div>
+                        <div class="px-3 py-1 bg-secondary text-dark-text font-extrabold text-2xl rounded-full transition duration-300 inline-block w-full">
+                            1098
+                        </div>
+                    </div>
+                </a>
+
+                <a href="tel:181" class="group block h-full">
+                    <div class="p-6 bg-card card-rounded shadow-xl border-t-8 border-dark-text/50 hover:shadow-2xl transition duration-300 transform hover:scale-[1.03] text-center h-full flex flex-col justify-between">
+                        <div>
+                            <span class="text-5xl mb-3 block">🛡️</span>
+                            <h3 class="font-bold text-xl text-dark-text mb-2">Women's Support Line</h3>
+                            <p class="text-sm text-gray-500 mb-4">Assistance for domestic violence and general counseling.</p>
+                        </div>
+                        <div class="px-3 py-1 bg-dark-text text-white font-extrabold text-2xl rounded-full transition duration-300 inline-block w-full">
+                            181
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    ---
+
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-extrabold text-center mb-12 text-dark-text">
+                Essential <span class="text-safety-pink">Safety Drills</span> for Daily Life
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-10 max-w-6xl mx-auto">
+                
+                <div class="bg-background p-8 card-rounded shadow-lg border-l-4 border-safety-pink">
+                    <h3 class="text-2xl font-extrabold mb-4 text-dark-text flex items-center">
+                        <span class="text-3xl mr-3 text-safety-pink">🚌</span> Travel Safety
+                    </h3>
+                    <ul class="space-y-3 text-gray-700 ml-2">
+                        <li class="flex items-start">
+                            <span class="text-secondary font-bold mr-3 mt-1">✓</span> 
+                            <p>
+                                **Share Live Location:** Always activate real-time GPS sharing with at least one trusted contact when traveling.
+                            </p>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-secondary font-bold mr-3 mt-1">✓</span> 
+                            <p>
+                                **Situational Awareness:** Avoid isolated areas in buses, trains, or cabs. Be visible and near the driver/conductor if possible.
+                            </p>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-secondary font-bold mr-3 mt-1">✓</span> 
+                            <p>
+                                **Document:** Note the vehicle number and share it with a family member before starting the journey.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-background p-8 card-rounded shadow-lg border-l-4 border-safety-pink">
+                    <h3 class="text-2xl font-extrabold mb-4 text-dark-text flex items-center">
+                        <span class="text-3xl mr-3 text-safety-pink">🔒</span> Digital Security
+                    </h3>
+                    <ul class="space-y-3 text-gray-700 ml-2">
+                        <li class="flex items-start">
+                            <span class="text-secondary font-bold mr-3 mt-1">✓</span> 
+                            <p>
+                                **Privacy First:** Set all social media profiles to the highest privacy level. Restrict friend requests from strangers.
+                            </p>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-secondary font-bold mr-3 mt-1">✓</span> 
+                            <p>
+                                **Password Strength:** Use a unique, strong password or passphrase for critical accounts and enable **Two-Factor Authentication (2FA)**.
+                            </p>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-secondary font-bold mr-3 mt-1">✓</span> 
+                            <p>
+                                **No Personal Sharing:** Never share intimate photos, financial details, or your exact current location with unknown online contacts.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-background p-8 card-rounded shadow-lg border-l-4 border-safety-pink">
+                    <h3 class="text-2xl font-extrabold mb-4 text-dark-text flex items-center">
+                        <span class="text-3xl mr-3 text-safety-pink">🚶‍♀️</span> Walking Alone
+                    </h3>
+                    <ul class="space-y-3 text-gray-700 ml-2">
+                        <li class="flex items-start">
+                            <span class="text-secondary font-bold mr-3 mt-1">✓</span> 
+                            <p>
+                                **Be Present:** Avoid excessive headphone use. Your hearing is a crucial early warning system.
+                            </p>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-secondary font-bold mr-3 mt-1">✓</span> 
+                            <p>
+                                **Project Confidence:** Walk with a purpose, head up, and maintain brief eye contact. Confidence can deter a potential attacker.
+                            </p>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-secondary font-bold mr-3 mt-1">✓</span> 
+                            <p>
+                                **Stick to Light:** Choose well-lit, populated routes, even if they take a little longer.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-background p-8 card-rounded shadow-lg border-l-4 border-safety-pink">
+                    <h3 class="text-2xl font-extrabold mb-4 text-dark-text flex items-center">
+                        <span class="text-3xl mr-3 text-safety-pink">🛎️</span> Immediate Action
+                    </h3>
+                    <ul class="space-y-3 text-gray-700 ml-2">
+                        <li class="flex items-start">
+                            <span class="text-secondary font-bold mr-3 mt-1">✓</span> 
+                            <p>
+                                **Loud Distress:** If threatened, shout "FIRE!" not "Help!" to attract immediate public attention.
+                            </p>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-secondary font-bold mr-3 mt-1">✓</span> 
+                            <p>
+                                **Mobile Readiness:** Know how to activate emergency functions (e.g., three quick power button presses) on your phone instantly.
+                            </p>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-secondary font-bold mr-3 mt-1">✓</span> 
+                            <p>
+                                **Use Vitals:** Aim for vulnerable targets like the eyes, throat, or groin if you are forced to physically defend yourself.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    ---
+
+    <section class="py-16 bg-dark-text">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-extrabold text-center mb-12 text-secondary">
+                Empowerment & <span class="text-white">Resources</span>
+            </h2>
+
+            <div class="grid md:grid-cols-3 gap-8 text-center max-w-6xl mx-auto">
+                
+                <div class="p-6 card-rounded bg-white/10 hover:bg-white/20 transition duration-300 shadow-lg border-b-4 border-safety-pink">
+                    <span class="text-5xl block mb-3 text-safety-pink">⚖️</span>
+                    <h4 class="font-bold text-xl text-white mb-3">Legal Rights Awareness</h4>
+                    <p class="text-sm text-gray-300 mb-4 h-12">Understand the specific laws and protections available to women and minors under Indian law.</p>
+                    <a href="#" class="px-5 py-2 bg-secondary text-dark-text font-semibold rounded-full hover:bg-orange-600 transition duration-300 text-sm">View Legal Guide</a>
+                </div>
+
+                <div class="p-6 card-rounded bg-white/10 hover:bg-white/20 transition duration-300 shadow-lg border-b-4 border-safety-pink">
+                    <span class="text-5xl block mb-3 text-safety-pink">🥋</span>
+                    <h4 class="font-bold text-xl text-white mb-3">Physical Self-Defense Drills</h4>
+                    <p class="text-sm text-gray-300 mb-4 h-12">Learn foundational self-defense techniques and strategies to increase physical resilience and escape dangerous situations.</p>
+                    <a href="Z3drill.html" class="px-5 py-2 bg-secondary text-dark-text font-semibold rounded-full hover:bg-orange-600 transition duration-300 text-sm">Start Practice Module</a>
+                </div>
+
+                <div class="p-6 card-rounded bg-white/10 hover:bg-white/20 transition duration-300 shadow-lg border-b-4 border-safety-pink">
+                    <span class="text-5xl block mb-3 text-safety-pink">🤝</span>
+                    <h4 class="font-bold text-xl text-white mb-3">Counseling & Support</h4>
+                    <p class="text-sm text-gray-300 mb-4 h-12">Find resources for mental health support, emotional counseling, and local NGOs offering assistance.</p>
+                    <a href="#" class="px-5 py-2 bg-secondary text-dark-text font-semibold rounded-full hover:bg-orange-600 transition duration-300 text-sm">Find Support</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-dark-text text-gray-100 py-6 text-center border-t border-secondary/50">
+        <p class="text-xs text-gray-500">
+            © 2025 DA-SCHOOLS Team. Safety is a collective responsibility.
+        </p>
+    </footer>
+
+</body>
+</html>
